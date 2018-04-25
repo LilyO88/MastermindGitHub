@@ -1,6 +1,7 @@
 package mastermind;
 
-public interface Dibujable {
-
-
+public interface Dibujable {	
+	
+	String dibujar();
+	String dibujarResultado();
 }

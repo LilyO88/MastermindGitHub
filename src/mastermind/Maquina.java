@@ -1,5 +1,6 @@
 package mastermind;
 
+import java.util.HashMap;
 //import java.util.ArrayList;
 //import java.util.LinkedHashMap;
 import java.util.Random;
@@ -8,8 +9,14 @@ import utilidades.Color;
 
 public class Maquina extends Jugador {
 	
+	private HashMap <Jugada, Boolean> intentos; //Mejor TreeMap para comprobar luego la mejor jugada //De Tablero o de máquina????
+	
 	Maquina(Dificultad dificultad) {
 		this.dificultad = dificultad; //heredado del padre Jugador
+		//SI modo dificil hacer un hashMap
+		if (dificultad == Dificultad.DIFICIL) {
+			intentos = new HashMap<>();
+		}
 	}
 
 	@Override
@@ -121,4 +128,7 @@ public class Maquina extends Jugador {
 		return combinacion;
 	}
 
+	public Combinacion crearIntento() {
+		return null;
+	}
 }

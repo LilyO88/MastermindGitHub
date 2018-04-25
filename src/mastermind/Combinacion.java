@@ -2,13 +2,13 @@ package mastermind;
 
 import utilidades.Color;
 
-public class Combinacion {
+public class Combinacion implements Dibujable {
 	
 	private Casilla combinacion[];
 	private Dificultad dificultad;
 	private int posicion = 0;
 	
-	Combinacion(Dificultad dificultad) { //mandar por parámetro un entero en lugar de la dificultad
+	Combinacion(Dificultad dificultad) {
 		combinacion = new Casilla[dificultad.getCasillas()];
 		this.dificultad = dificultad;
 	}
@@ -92,4 +92,23 @@ public class Combinacion {
 		
 		return noColocado;
 	}
+	
+	public String dibujar() {		
+		String cadena = "";
+		
+		for(int i = 0 ; i < combinacion.length ; i++) {
+			cadena = cadena + (Color.FONDO_ROJO + "  " + Color.RESET) + combinacion[i].dibujar();
+		}		
+		return cadena;
+	}
+	
+	public String dibujarResultado() {		
+		String cadena = "";
+		
+		for(int i = 0 ; i < combinacion.length ; i++) {
+			cadena = cadena + (Color.FONDO_ROJO + " " + Color.RESET) + combinacion[i].dibujarResultado();
+		}		
+		return cadena;
+	}
+	
 }

@@ -21,11 +21,7 @@ public class Partida {
 		Tablero tablero1, tablero2;
 		Jugada jugada1, jugada2;
 		Combinacion combinacion1, combinacion2;
-//		Usuario jugador1 = new Usuario(dificultad);
-//		Maquina jugadorMaquina1 = new Maquina(dificultad), jugador2 = new Maquina(dificultad);
 		boolean salir = false;
-//		Casilla pinchoRojo = new Casilla(Color.FONDO_ROJOCLARO), pinchoBlanco = new Casilla(Color.FONDO_BLANCO), 
-//		pinchoVacio = new Casilla(Color.FONDO_NEGRO);
 		int i, colocados1 = 0, colocados2 = 0, noColocados1 = 0, noColocados2 = 0;
 		
 		switch (dificultad) {
@@ -43,7 +39,7 @@ public class Partida {
 			System.out.println("¡Ha elegido el modo fácil!\n\nDebe adivinar la combinación secreta");
 			
 		//1. La máquina crea una combinación secreta			
-			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion());
+			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);
 			System.out.println("El Jugador 2 (Máquina) ha creado la combinación secreta, intente adivinarla");
 		//2. Sistema pregunta siguiente jugada
 			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
@@ -57,11 +53,13 @@ public class Partida {
 				tablero2.anadirJugada(jugada1);
 		//	2.1. No acierta y queda aciertos, vuelve a preguntar								
 				//Dibujar la combinación de la jugada y los pinchos
+				tablero2.dibujarTableros(null, (i + 1));
 				//Contamos los pinchos rojos para saber si el usuario ha ganado
 				colocados1 = jugada1.getResultado().contarColocados();
 		//	2.2. Acierta la combinación y esta dentro del número de intentos				
 				if(colocados1 == combinacion1.getCombinacion().length && i < dificultad.getIntentos()) {
-					//Dibujar la combinación secreta
+					//Dibujar la combinación secreta ?????????????????????
+					//Mensaje ganador
 					System.out.println(Color.VERDE + "¡Ha ganado Jugador 1 (Usuario)! ¡Ha acertado la combinación secreta!" + Color.RESET);
 					salir = true;
 				} else if (colocados1 != combinacion1.getCombinacion().length && i == (dificultad.getIntentos() - 1)) {
@@ -86,7 +84,7 @@ public class Partida {
 			System.out.println("¡Ha elegido el modo fácil!\n\nDebe crear una combinación secreta que la máquina intentará adivinar");
 			
 		//1. El usuario crea una combinación			
-			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion());
+			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion(), dificultad);
 			System.out.println("El Jugador 1 (Usuario) ha creado la combinación secreta, la máquina intentará adivinarla");
 		//2. Sistema pregunta siguiente jugada
 			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
@@ -132,10 +130,12 @@ public class Partida {
 			 * 	3.3. No acierta ninguno y quedan intentos, vuelve a preguntar 2.
 			 */
 			
+			System.out.println("¡Ha elegido el modo medio!\n\nDebe crear una combinación secreta que la máquina intentará adivinar y viceversa");
+			
 		//1. El usuario y la máquina crean su combinación secreta cada uno
-			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion());
+			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion(), dificultad);
 			System.out.println("Jugador 1 ha creado su combinación secreta");
-			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion());			
+			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);			
 			System.out.println("Jugador 2 ha creado su combinación secreta");
 			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
 				System.out.println("Intento " + (i+1) + ":\n");
@@ -224,9 +224,11 @@ public class Partida {
 			 * 	3.3. No acierta ninguno y quedan intentos, vuelve a preguntar 2.
 			 */
 			
+			System.out.println("¡Ha elegido el modo difícil!\n\nUna máquina creará una combinación secreta que la otra máquina intentará adivinar y viceversa");
+			
 		//1. Las máquinas crean su combinación secreta cada una
-			tablero1 = new Tablero(((Maquina)jugador1).crearCombinacion());
-			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion());
+			tablero1 = new Tablero(((Maquina)jugador1).crearCombinacion(), dificultad);
+			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);
 			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
 				System.out.println("Intento " + (i+1) + ":\n");
 		//2. Las máquinas crean combinación para la jugada

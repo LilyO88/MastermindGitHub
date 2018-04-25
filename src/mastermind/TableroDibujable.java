@@ -1,8 +1,8 @@
 package mastermind;
 
-public interface TableroDibujable extends Dibujable{
+public interface TableroDibujable {
 	
-	void dibujarTablero();
-	void dibujarTableros(Tablero tablero1, Tablero tablero2);
+	void dibujarTableros(Tablero tablero2, int intento);	
+	void dibujarCombinacionSecreta(Tablero tablero2);
 
 }
