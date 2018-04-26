@@ -62,8 +62,7 @@ public class Combinacion implements Dibujable {
 				resultado.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
 				contador++;
 			}
-		}
-		
+		}	
 		return resultado; //devolver resultado
 	}
 	

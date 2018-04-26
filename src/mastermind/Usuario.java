@@ -15,7 +15,7 @@ public class Usuario extends Jugador {
 		Combinacion combinacion = new Combinacion(dificultad);
 		Casilla casilla = null;
 		boolean repetido;
-		int i, opcionColor;
+		int i, j, opcionColor;
 		
 		/*
 		 * 1. Pedir color al usuario de la posicion 
@@ -26,16 +26,18 @@ public class Usuario extends Jugador {
 		 * 4. Se pueden repetir colores
 		 */
 		
-		for(i = 0 ; i < dificultad.getCasillas() ; i++) {
+		System.out.println("Estos son los colores que puede usar para crear la combinación:\n"
+		+ Color.FONDO_AMARILLOCLARO + " 1 " + Color.RESET + "  " + Color.FONDO_VERDECLARO + " 2 "
+					+ Color.RESET + "  " + Color.FONDO_VERDE + " 3 " + Color.RESET + "  " + Color.FONDO_CELESTECLARO
+					+ " 4 " + Color.RESET + "  " + Color.FONDO_AZULCLARO + " 5 " + Color.RESET + "  "
+					+ Color.FONDO_ROJOCLARO + " 6 " + Color.RESET + "  " + Color.FONDO_MORADOCLARO + " 7 " + Color.RESET
+					+ "  " + Color.FONDO_MORADO + " 8 " + Color.RESET + "\n");
+		
+		for(i = 0 ; i < dificultad.getCasillas() ; i++) {	
 			do {
 				repetido = false;		
 		//1. Pedir color al usuario de la posicion 
-				opcionColor = Teclado.leerInt("Posición " + (i + 1) + " escoja un color de los siguientes:\n"
-						+ Color.FONDO_AMARILLOCLARO + " 1 " + Color.RESET + "  " + Color.FONDO_VERDECLARO + " 2 "
-						+ Color.RESET + "  " + Color.FONDO_VERDE + " 3 " + Color.RESET + "  " + Color.FONDO_CELESTECLARO
-						+ " 4 " + Color.RESET + "  " + Color.FONDO_AZULCLARO + " 5 " + Color.RESET + "  "
-						+ Color.FONDO_ROJOCLARO + " 6 " + Color.RESET + "  " + Color.FONDO_MORADOCLARO + " 7 " + Color.RESET
-						+ "  " + Color.FONDO_MORADO + " 8 " + Color.RESET);
+				opcionColor = Teclado.leerInt("Posición " + (i + 1) + ":");
 //				System.out.println(opcionColor);
 				switch (opcionColor) {
 				case 1:
@@ -67,12 +69,18 @@ public class Usuario extends Jugador {
 		//3. No se pueden repetir colores. Se comprueba si el color está
 		/*------------------------NO PUEDEN REPETIRSE LOS COLORES------------------------*/
 				if(!dificultad.getRepetir()) {
-		//	3.1. Si el color está, se vuelve a pedir el color al usuario
-					if(casilla.equals(combinacion.getCasilla(i))) {
-						repetido = true;
+					if(i==0) {
+						combinacion.anadirCasilla(casilla);					
 					} else {
-		//	3.2. Si el color no está, se añade la casilla a la combinación
-						combinacion.anadirCasilla(casilla);
+						for (j = 0 ; j < i && !repetido ; j++) { //falla cuando se repite
+		//	3.1. Si está repetido volver a pedir color			
+							if (casilla.equals(combinacion.getCasilla(j))) {
+								repetido = true;
+							} else if (!casilla.equals(combinacion.getCasilla(j)) && (j == (i - 1))) {
+		//	3.2. Si no está repetido añadir a la combinacion
+								combinacion.anadirCasilla(casilla);
+							}
+						}
 					}
 				} else {		
 		//4. Se pueden repetir colores. Se añade la casilla a la combinación

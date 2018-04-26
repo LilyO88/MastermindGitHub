@@ -8,6 +8,7 @@ public class Jugada implements JugadaDibujable {
 	
 	Jugada(Combinacion combinacion) {
 		this.combinacion = combinacion;
+		setResultado(resultado);
 	}
 	
 	public Combinacion getResultado() {
@@ -18,7 +19,7 @@ public class Jugada implements JugadaDibujable {
 		return combinacion;
 	}
 	
-	public void setResutado(Combinacion combinacion) {
+	public void setResultado(Combinacion combinacion) {
 		this.resultado = combinacion;
 	}
 
@@ -26,7 +27,7 @@ public class Jugada implements JugadaDibujable {
 		resultado = combinacion.calcularResultado(combinacionSecreta);
 		
 		return resultado;
-	}	
+	}
 	
 	public String dibujarPrimeraFilaJugada(Dificultad dificultad) {
 		final String ESPACIO = " ";

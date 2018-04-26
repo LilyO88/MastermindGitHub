@@ -221,5 +221,122 @@ public class Prueba {
 //		System.out.println(Color.FONDO_ROJO + " 10." + Color.RESET + combinacion.dibujarCombinacion() + Color.FONDO_ROJO + "               " + Color.RESET + Color.FONDO_ROJO + "  " + Color.RESET);
 //	
 //}
+	
+	//En la clase tablero
+	
+//	public void dibujarTableros(Tablero tablero2, int intento) {
+//	final int UNESPACIO = 1, DOSESPACIOS = 2, TRESESPACIOS = 3, SEISESPACIOS = 6, DOCEESPACIOS = 12, 
+//			OCUPACOMB = (6 * dificultad.getCasillas()), OCUPARESULT = (3 * dificultad.getCasillas());
+//	final String ESPACIO = " ";
+//	String espaciosVacios = "";
+//	int i, largo = 0;
+//	
+//	if(dificultad == Dificultad.FACILADIVINAR || dificultad == Dificultad.FACILCOMPROBAR) {
+//		largo = SEISESPACIOS + OCUPACOMB + TRESESPACIOS + OCUPARESULT + DOSESPACIOS;
+//		
+//		for(i = 0 ; i < largo ; i++) {
+//			espaciosVacios = espaciosVacios + ESPACIO;
+//		}
+//		
+//		if(intento == 1) {
+//			System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET + "\n"
+//								+ dibujarTablerosPrimeraFila(null, intento) + "\n" + dibujarTablerosSegundaFila(null)
+//								+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+//		} else {
+//			System.out.println(dibujarTablerosPrimeraFila(null, intento) + "\n" + dibujarTablerosSegundaFila(null)
+//								+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+//		}
+//	} else {
+//		largo = UNESPACIO + (2 * (6 * OCUPACOMB)) + (2 * TRESESPACIOS) + (2 * (3 * OCUPARESULT)) + (2 * DOSESPACIOS) + DOCEESPACIOS;
+//		
+//		for(i = 0 ; i < largo ; i++) {
+//			espaciosVacios = espaciosVacios + ESPACIO;
+//		}
+//		
+//		if(intento == 1) {
+//			System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+//		} else {
+//			System.out.println(dibujarTablerosPrimeraFila(null, intento) + dibujarPrimeraFilaIntermedio(intento) 
+//								+ tablero2.dibujarTablerosPrimeraFila(tablero2, intento) + "\n" + dibujarTablerosSegundaFila(tablero2)
+//								+ dibujarSegundaFilaIntermedio() + tablero2.dibujarTablerosSegundaFila(tablero2));
+//		}
+//	}
+//		
+//}
+	
+//	public void dibujarCombinacionSecreta2(Tablero tablero2) {		
+//	final String ESPACIO = " ";
+//	String espaciosVacios = "";
+//	int i, largo = 0;
+//	Jugada jugada = new Jugada(combinacionSecreta), jugada2 = new Jugada(tablero2.getCombinacionSecreta());
+//
+//	/*
+//	 * 1. Dibujar la combinación secreta del tablero
+//	 * 2. Dependiendo de la dificultad, mostrar en pantalla la combinación secreta
+//	 * 	2.1. Fácil, se muestran los espacios del inicio, la combinación secreta y un espacio final, 2 filas
+//	 * 	2.2. Medio o Difícil, se muestra en pantalla los espacios del inicio, combinación secreta del jugador1, espacios variables,
+//	 * 		el espacio intermedio, combinación secreta del jugador2, y un pequeño espacio final, 2 filas
+//	 * 3. Se muestran también una fila entera vacía coloreado como el tablero antes y después de dibujar las jugadas o combinaciones
+//	 */
+//	
+//	if(dificultad == Dificultad.FACILADIVINAR || dificultad == Dificultad.FACILCOMPROBAR) {
+//		largo = dibujarTablerosSegundaFila(null).length();
+//		
+//		for(i = 0 ; i < largo ; i++) {
+//			espaciosVacios = espaciosVacios + ESPACIO;
+//		}
+//		
+//		System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+//		System.out.println(dibujarSegundaFilaInicio() + jugada.dibujarPrimeraFilaJugada(dificultad) 
+//							+ "\n" + dibujarSegundaFilaInicio() + jugada.dibujarPrimeraFilaJugada(dificultad)
+//							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+//	} else {
+//		largo = dibujarTablerosSegundaFila(null).length() + dibujarSegundaFilaIntermedio().length() 
+//				+ dibujarTablerosSegundaFila(null).length();
+//		
+//		for(i = 0 ; i < largo ; i++) {
+//			espaciosVacios = espaciosVacios + ESPACIO;
+//		}
+//		
+//		System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+//		System.out.println(dibujarSegundaFilaInicio() + jugada.dibujarPrimeraFilaJugada(dificultad) + dibujarSegundaFilaIntermedio()
+//						+ jugada2.dibujarPrimeraFilaJugada(dificultad) + "\n" + dibujarSegundaFilaInicio() 
+//						+ jugada.dibujarPrimeraFilaJugada(dificultad) + dibujarSegundaFilaIntermedio() 
+//						+ jugada2.dibujarPrimeraFilaJugada(dificultad) + "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+//	}
+//} //final dibujarCombinacionSecreta
+	
+//	private String dibujarTablerosPrimeraFila(Tablero tablero2, int intento) {
+//	String cadena = "";
+//	Jugada jugada = null, jugada2 = null;
+//
+//	jugada = tablero.getLast();
+//	
+//	if (dificultad == Dificultad.FACILADIVINAR || dificultad == Dificultad.FACILCOMPROBAR) 
+//		cadena = dibujarPrimeraFilaInicio(intento) + jugada.dibujarPrimeraFilaJugada(dificultad);
+//	else {
+//		jugada2 = tablero2.getTablero().getLast();
+//		cadena = dibujarPrimeraFilaInicio(intento) + jugada.dibujarPrimeraFilaJugada(dificultad) 
+//				+ dibujarPrimeraFilaIntermedio(intento) + jugada2.dibujarPrimeraFilaJugada(dificultad);
+//	}
+//	return cadena;
+//}
+//
+//private String dibujarTablerosSegundaFila(Tablero tablero2) {
+//	String cadena = "";
+//	Jugada jugada = null, jugada2 = null;
+//
+//	jugada = tablero.getLast();
+//	
+//	
+//	if (dificultad == Dificultad.FACILADIVINAR || dificultad == Dificultad.FACILCOMPROBAR) 
+//		cadena = dibujarSegundaFilaInicio() + jugada.dibujarSegundaFilaJugada(dificultad);
+//	else {
+//		jugada2 = tablero2.getTablero().getLast();
+//		cadena = dibujarSegundaFilaInicio() + jugada.dibujarSegundaFilaJugada(dificultad) + dibujarSegundaFilaIntermedio() 
+//				+ jugada2.dibujarSegundaFilaJugada(dificultad);
+//	}
+//	return cadena;
+//}
 
 }

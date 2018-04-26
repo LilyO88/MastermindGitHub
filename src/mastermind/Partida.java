@@ -41,16 +41,21 @@ public class Partida {
 		//1. La máquina crea una combinación secreta			
 			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);
 			System.out.println("El Jugador 2 (Máquina) ha creado la combinación secreta, intente adivinarla");
+			System.out.println(tablero2.getCombinacionSecreta().dibujar());
 		//2. Sistema pregunta siguiente jugada
-			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
-				System.out.println("Intento " + (i+1) + ":\n");
+			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
+				System.out.println("\nIntento " + (i+1) + ":\n");
 				//El usuario crea la combinación
 				combinacion1 = ((Usuario)jugador1).crearCombinacion();
 				//Creamos la jugada con la combinación propuesta
 				jugada1 = new Jugada(combinacion1);
+//				System.out.println(jugada1.getCombinacion().dibujar());
 				//Calculamos el resultado de dicha combinación
 				jugada1.calcularResultado(tablero2.getCombinacionSecreta());
-				tablero2.anadirJugada(jugada1);
+//				System.out.println(jugada1.getResultado().dibujarResultado());
+//				System.out.println(jugada1.dibujarPrimeraFilaJugada(dificultad) + "\n" + jugada1.dibujarSegundaFilaJugada(dificultad));
+//				tablero2.setTablero(jugada1.anadirJugada());
+				tablero2.getTablero().add(jugada1);
 		//	2.1. No acierta y queda aciertos, vuelve a preguntar								
 				//Dibujar la combinación de la jugada y los pinchos
 				tablero2.dibujarTableros(null, (i + 1));
@@ -59,6 +64,7 @@ public class Partida {
 		//	2.2. Acierta la combinación y esta dentro del número de intentos				
 				if(colocados1 == combinacion1.getCombinacion().length && i < dificultad.getIntentos()) {
 					//Dibujar la combinación secreta ?????????????????????
+					tablero2.dibujarCombinacionSecreta(null);
 					//Mensaje ganador
 					System.out.println(Color.VERDE + "¡Ha ganado Jugador 1 (Usuario)! ¡Ha acertado la combinación secreta!" + Color.RESET);
 					salir = true;
@@ -69,7 +75,8 @@ public class Partida {
 					salir = true;
 				}				
 			} //final del for del modo fácil adivinar
-
+			break;
+			
 		case FACILCOMPROBAR:
 			jugador1 = new Usuario(dificultad);
 			jugador2 = new Maquina(dificultad);
@@ -93,9 +100,11 @@ public class Partida {
 				combinacion2 = ((Maquina)jugador2).crearCombinacion();
 				jugada2 = new Jugada(combinacion2);
 				//La combinación crea un resultado, que es realizado por el usuario y comprobado por el sistema, de la combinación comparada con la secreta
-				jugada2.setResutado(((Usuario)jugador1).colocarPinchos(combinacion2, tablero1.getCombinacionSecreta()));
+				jugada2.setResultado(((Usuario)jugador1).colocarPinchos(combinacion2, tablero1.getCombinacionSecreta()));
 				//Creamos la jugada con la combinación y el resultado de la combinación propuesta
-				tablero1.anadirJugada(jugada2);
+//				tablero1.setTablero(jugada2.anadirJugada());
+//				tablero1.anadirJugada(jugada2);
+				tablero1.getTablero().add(jugada2);
 		//	2.1. No acierta y queda aciertos, vuelve a preguntar								
 				//Dibujar la combinación de la jugada y los pinchos
 				//Contamos los pinchos rojos para saber si el usuario ha ganado
@@ -113,6 +122,7 @@ public class Partida {
 				}				
 			} //final del for del modo fácil comprobar
 			break;
+			
 		case MEDIO:
 			jugador1 = new Usuario(dificultad);
 			jugador2 = new Maquina(dificultad);
@@ -144,13 +154,17 @@ public class Partida {
 //				resultado1 = combinacion1.calcularResultado(tablero2.getCombinacionSecreta());				
 				jugada1 = new Jugada(combinacion1);
 				jugada1.calcularResultado(tablero2.getCombinacionSecreta());
-				tablero2.anadirJugada(jugada1);
+//				tablero2.anadirJugada(jugada1);
+//				tablero2.setTablero(jugada1.anadirJugada());
+				tablero2.getTablero().add(jugada1);
 				
 				combinacion2 = ((Maquina)jugador2).crearCombinacion();
 				//Dibujar la combinación 2
 				jugada2 = new Jugada(combinacion2);
-				jugada2.setResutado(((Usuario)jugador1).colocarPinchos(combinacion2, tablero1.getCombinacionSecreta()));				
-				tablero1.anadirJugada(jugada2);
+				jugada2.setResultado(((Usuario)jugador1).colocarPinchos(combinacion2, tablero1.getCombinacionSecreta()));				
+//				tablero1.anadirJugada(jugada2);
+//				tablero1.setTablero(jugada2.anadirJugada());
+				tablero1.getTablero().add(jugada2);
 		//3. Se cuentan los colores colocados en su sitio y los no colocados en su lugar
 				colocados1 = jugada1.getResultado().contarColocados();
 				colocados2 = jugada2.getResultado().contarColocados();
@@ -235,12 +249,17 @@ public class Partida {
 				combinacion1 = ((Maquina)jugador1).crearCombinacion();
 				jugada1 = new Jugada(combinacion1);
 				jugada1.calcularResultado(tablero2.getCombinacionSecreta());
-				tablero2.anadirJugada(jugada1);
+//				tablero2.anadirJugada(jugada1);
+//				tablero2.setTablero(jugada1.anadirJugada());
+				tablero2.getTablero().add(jugada1);
 				
 				combinacion2 = ((Maquina)jugador2).crearCombinacion();
 				jugada2 = new Jugada(combinacion2);
 				jugada2.calcularResultado(tablero1.getCombinacionSecreta());
-				tablero1.anadirJugada(jugada2);
+//				tablero1.anadirJugada(jugada2);
+//				tablero1.setTablero(jugada2.anadirJugada());
+				tablero1.getTablero().add(jugada2);
+				
 		//3. Se cuentan los colores colocados en su sitio y los no colocados en su lugar
 				colocados1 = jugada1.getResultado().contarColocados();
 				colocados2 = jugada2.getResultado().contarColocados();

@@ -21,7 +21,7 @@ public class Controlador {
 		//1. Presentación del juego
 		System.out.println("    " + FONDO_ROJOCLARO + "  " + RESET + "   " + FONDO_VERDECLARO
 				+ "  " + RESET + "   " + "Mastermind" + "   " + FONDO_AMARILLOCLARO + "  " + RESET
-				+ "   " + FONDO_AZULCLARO + "  " + RESET + "\n\n");
+				+ "   " + FONDO_AZULCLARO + "  " + RESET + "\n");
 	
 		do {
 			volverJugar = false;
@@ -42,17 +42,23 @@ public class Controlador {
 		//				2.1.2.1.1. Fácil, adivinar la combinación
 					case 1: 
 						partida = new Partida(Dificultad.FACILADIVINAR, jugador1, jugador2);
+						partida.jugar();
 						break;
 		//				2.1.2.1.2. Fácil, crear la combinación
 					case 2: 
 						partida = new Partida(Dificultad.FACILCOMPROBAR, jugador1, jugador2);
+						partida.jugar();
 						break;
 					} //switch menú3
+
+					break;
 				case 2: 	
 					partida = new Partida(Dificultad.MEDIO, jugador1, jugador2);
+					partida.jugar();
 					break;
 				case 3: 	
 					partida = new Partida(Dificultad.DIFICIL, jugador1, jugador2);
+					partida.jugar();
 					break;
 				} //switch menú2
 					break;
@@ -72,7 +78,7 @@ public class Controlador {
 				salir = true;
 			}		
 			
-		} while (salir);
+		} while (!salir);
 			
 	} //final menu()
 	

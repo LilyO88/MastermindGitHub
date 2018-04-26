@@ -1,6 +1,6 @@
 package mastermind;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 //import java.util.ArrayList;
 //import java.util.LinkedHashMap;
 import java.util.Random;
@@ -9,13 +9,13 @@ import utilidades.Color;
 
 public class Maquina extends Jugador {
 	
-	private HashMap <Jugada, Boolean> intentos; //Mejor TreeMap para comprobar luego la mejor jugada //De Tablero o de máquina????
+//	private HashMap <Jugada, Boolean> intentos; //Mejor TreeMap para comprobar luego la mejor jugada //De Tablero o de máquina????
 	
 	Maquina(Dificultad dificultad) {
 		this.dificultad = dificultad; //heredado del padre Jugador
 		//SI modo dificil hacer un hashMap
 		if (dificultad == Dificultad.DIFICIL) {
-			intentos = new HashMap<>();
+//			intentos = new HashMap<>();
 		}
 	}
 
@@ -25,7 +25,7 @@ public class Maquina extends Jugador {
 		Casilla casilla = null;
 		Random rnd = new Random();
 		boolean repetido;
-		int i, aleatorioColor;
+		int i, j, aleatorioColor;
 		
 		/*
 		 * 1. Sacar color para la posicion x aleatorio, si la partida es nivel difícil hay 10 colores, en el resto de modos se jugarán con 8
@@ -43,61 +43,61 @@ public class Maquina extends Jugador {
 				aleatorioColor = rnd.nextInt(dificultad.getColores());
 				if (dificultad != Dificultad.DIFICIL) {
 					switch (aleatorioColor) {
-					case 1:
+					case 0:
 						casilla = new Casilla(Color.FONDO_AMARILLOCLARO);
 						break;
-					case 2:
+					case 1:
 						casilla = new Casilla(Color.FONDO_VERDECLARO);
 						break;
-					case 3:
+					case 2:
 						casilla = new Casilla(Color.FONDO_VERDE);
 						break;
-					case 4:
+					case 3:
 						casilla = new Casilla(Color.FONDO_CELESTECLARO);
 						break;
-					case 5:
+					case 4:
 						casilla = new Casilla(Color.FONDO_AZULCLARO);
 						break;
-					case 6:
+					case 5:
 						casilla = new Casilla(Color.FONDO_ROJOCLARO);
 						break;
-					case 7:
+					case 6:
 						casilla = new Casilla(Color.FONDO_MORADOCLARO);
 						break;
-					case 8:
+					case 7:
 						casilla = new Casilla(Color.FONDO_MORADO);
 						break;
 					}
 				} else {
 					switch (aleatorioColor) {
-					case 1:
+					case 0:
 						casilla = new Casilla(Color.FONDO_AMARILLOCLARO);
 						break;
-					case 2:
+					case 1:
 						casilla = new Casilla(Color.FONDO_AMARILLO);
 						break;
-					case 3:
+					case 2:
 						casilla = new Casilla(Color.FONDO_VERDECLARO);
 						break;
-					case 4:
+					case 3:
 						casilla = new Casilla(Color.FONDO_VERDE);
 						break;
-					case 5:
+					case 4:
 						casilla = new Casilla(Color.FONDO_CELESTECLARO);
 						break;
-					case 6:
+					case 5:
 						casilla = new Casilla(Color.FONDO_AZULCLARO);
 						break;
-					case 7:
+					case 6:
 						casilla = new Casilla(Color.FONDO_ROJOCLARO);
 						break;
-					case 8:
+					case 7:
 						casilla = new Casilla(Color.FONDO_MORADOCLARO);
 						break;
-					case 9:
+					case 8:
 						casilla = new Casilla(Color.FONDO_MORADO);
 						break;
-					case 10:
+					case 9:
 						casilla = new Casilla(Color.FONDO_GRISOSCURO);
 						break;
 					}					
@@ -105,14 +105,18 @@ public class Maquina extends Jugador {
 		//2. Definir si se puede repetir color en el tipo de partida
 		/*------------------------NO PUEDEN REPETIRSE LOS COLORES------------------------*/
 				if (!dificultad.getRepetir()) {
+					if(i==0) {
+						combinacion.anadirCasilla(casilla);					
+					} else {
 		//3. No se pueden repetir colores. Comprobar si el color está repetido	
-					for (i = 0; i < combinacion.getCombinacion().length ; i++) {
+						for (j = 0 ; j < i && !repetido ; j++) { //falla cuando se repite
 		//	3.1. Si está repetido volver a pedir color			
-						if (casilla.equals(combinacion.getCasilla(i))) {
-							repetido = true;
-						} else {
+							if (casilla.equals(combinacion.getCasilla(j))) {
+								repetido = true;
+							} else if (!casilla.equals(combinacion.getCasilla(j)) && (j == (i - 1))) {
 		//	3.2. Si no está repetido añadir a la combinacion
-							combinacion.anadirCasilla(casilla);
+								combinacion.anadirCasilla(casilla);
+							}
 						}
 					}
 				} else {
