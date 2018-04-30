@@ -11,14 +11,14 @@ public class Usuario extends Jugador {
 	}
 
 	@Override
-	public Combinacion crearCombinacion() { //Es igual que realizar jugada, ¿¿¿Llamar a realizarJugada de Usuario???
+	public Combinacion crearCombinacion() {
 		Combinacion combinacion = new Combinacion(dificultad);
 		Casilla casilla = null;
 		boolean repetido;
 		int i, j, opcionColor;
 		
 		/*
-		 * 1. Pedir color al usuario de la posicion 
+		 * 1. Pedir color al usuario de la posición 
 		 * 2. Definir si se puede repetir color o no según el tipo de partida
 		 * 3. No se pueden repetir colores. Se comprueba que el color no esté ya en la combinación
 		 * 	3.1. Si el color está, se le vuelve a pedir al usuario

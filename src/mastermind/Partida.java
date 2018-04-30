@@ -97,6 +97,9 @@ public class Partida {
 			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
 				System.out.println("Intento " + (i+1) + ":\n");
 				//La máquina crea la combinación
+				
+						//CREAR INTENTO
+				
 				combinacion2 = ((Maquina)jugador2).crearCombinacion();
 				jugada2 = new Jugada(combinacion2);
 				//La combinación crea un resultado, que es realizado por el usuario y comprobado por el sistema, de la combinación comparada con la secreta

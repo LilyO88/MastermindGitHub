@@ -1,5 +1,6 @@
 package mastermind;
 
+import java.util.LinkedList;
 //import java.util.HashMap;
 //import java.util.ArrayList;
 //import java.util.LinkedHashMap;
@@ -132,7 +133,76 @@ public class Maquina extends Jugador {
 		return combinacion;
 	}
 
-	public Combinacion crearIntento() {
-		return null;
-	}
+	public Combinacion crearIntento(LinkedList<Jugada> tablero, int intento) {
+		Combinacion combinacion = new Combinacion(dificultad);
+		LinkedList<Casilla> colocados = new LinkedList<>(), descolocados = new LinkedList<>(), 
+				descartados = new LinkedList<>();
+		int i, aleatorioColor;
+		Casilla casilla = null;
+		Random rnd = new Random();
+		Jugada jugadaAnterior = new Jugada(tablero.getLast().getCombinacion());
+		
+		//1. Según el modo de juego la máquina crea una estrategia u otra
+		//	1.1. Dificultad fácil y media
+		if(dificultad == Dificultad.FACILADIVINAR || dificultad == Dificultad.FACILCOMPROBAR || dificultad == Dificultad.MEDIO) {
+		//		1.1.1. Si es el primer intento la combinación no se basa en un resultado y es aleatoria	
+			if(intento == 1) {
+				crearCombinacion();
+		//		1.1.2. Creamos una combinación en base al resultado de la combinación anterior
+			} else {
+		//			1.1.2.1. Comprobamos el resultado de la jugada anterior
+				
+			}
+		
+
+		//	1.2. Dificultad difícil
+		} else {
+		//		1.2.1. Si es el primer intento la combinación no se basa en un resultado y es un color aleatorio 
+		//			repetido en todas las casillas	
+			if(intento == 1) {
+				aleatorioColor = rnd.nextInt(dificultad.getColores());				
+				switch (aleatorioColor) {
+				case 0:
+					casilla = new Casilla(Color.FONDO_AMARILLOCLARO);
+					break;
+				case 1:
+					casilla = new Casilla(Color.FONDO_AMARILLO);
+					break;
+				case 2:
+					casilla = new Casilla(Color.FONDO_VERDECLARO);
+					break;
+				case 3:
+					casilla = new Casilla(Color.FONDO_VERDE);
+					break;
+				case 4:
+					casilla = new Casilla(Color.FONDO_CELESTECLARO);
+					break;
+				case 5:
+					casilla = new Casilla(Color.FONDO_AZULCLARO);
+					break;
+				case 6:
+					casilla = new Casilla(Color.FONDO_ROJOCLARO);
+					break;
+				case 7:
+					casilla = new Casilla(Color.FONDO_MORADOCLARO);
+					break;
+				case 8:
+					casilla = new Casilla(Color.FONDO_MORADO);
+					break;
+				case 9:
+					casilla = new Casilla(Color.FONDO_GRISOSCURO);
+					break;
+				}	
+				for(i = 0 ; i < dificultad.getCasillas() ; i++) {
+					combinacion.anadirCasilla(casilla);
+				}
+		//		1.2.2. Creamos una combinación en base al resultado de la combinación anterior
+			} else {
+		//			1.1.2.1. Comprobamos el resultado de la jugada anterior
+				
+			}
+		}
+		
+		return combinacion;
+	} //final crearIntento()
 }
