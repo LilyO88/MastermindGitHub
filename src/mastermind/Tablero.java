@@ -24,6 +24,10 @@ public class Tablero implements TableroDibujable {
 		return combinacionSecreta;
 	}
 	
+	public void anadirJugada(Jugada jugada) {
+		tablero.add(jugada);
+	}
+	
 	private String dibujarPrimeraFilaInicio(int intento) {		
 		final String ESPACIO = " ", DOSESPACIOS = "  ";
 		String cadena = "";

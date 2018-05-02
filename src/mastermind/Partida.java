@@ -55,7 +55,7 @@ public class Partida {
 //				System.out.println(jugada1.getResultado().dibujarResultado());
 //				System.out.println(jugada1.dibujarPrimeraFilaJugada(dificultad) + "\n" + jugada1.dibujarSegundaFilaJugada(dificultad));
 //				tablero2.setTablero(jugada1.anadirJugada());
-				tablero2.getTablero().add(jugada1);
+				tablero2.anadirJugada(jugada1);
 		//	2.1. No acierta y queda aciertos, vuelve a preguntar								
 				//Dibujar la combinación de la jugada y los pinchos
 				tablero2.dibujarTableros(null, (i + 1));
