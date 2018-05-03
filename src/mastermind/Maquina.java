@@ -1,9 +1,5 @@
 package mastermind;
 
-import java.util.LinkedList;
-//import java.util.HashMap;
-//import java.util.ArrayList;
-//import java.util.LinkedHashMap;
 import java.util.Random;
 
 import utilidades.Color;
@@ -134,12 +130,11 @@ public class Maquina extends Jugador {
 	}
 
 	public Combinacion crearIntento(Tablero tablero, int intento) {
-		Combinacion combinacion = new Combinacion(dificultad), colores = new Combinacion(dificultad), intentoCombinacion = new Combinacion(dificultad),
-				definitiva = new Combinacion(dificultad);
-		Jugada resultadoAnterior = new Jugada(tablero.getTablero().getLast().getResultado());
-		Casilla casilla = null;
+		Combinacion combinacion = new Combinacion(dificultad), intentoCombinacion = new Combinacion(dificultad);
+		Casilla casilla = null, colores[] = new Casilla[dificultad.getCasillas()], descartados[] = new Casilla[dificultad.getCasillas()];
 		Random rnd = new Random();
-		int i, aleatorioColor, numeroPinchos = 0, descartados[] = new int[dificultad.getCasillas()];
+		int i = 0, j = 0, k = 0, aleatorioColor, numeroPinchos = 0;
+		boolean repetido = false, salir = false;
 		
 		//1. Según el modo de juego la máquina crea una estrategia u otra
 		//	1.1. Dificultad fácil y media
@@ -156,10 +151,10 @@ public class Maquina extends Jugador {
 
 		//	1.2. Dificultad difícil
 		} else {
-		//		1.2.1. Si es el primer intento la combinación no se basa en un resultado y es un color aleatorio 
-		//			repetido en todas las casillas	
-			if(intento == 1) {
-				aleatorioColor = rnd.nextInt(dificultad.getColores());				
+		//		1.2.1. Buscar los colores que componen la combinación
+			
+			do {		
+				aleatorioColor = rnd.nextInt(dificultad.getColores());
 				switch (aleatorioColor) {
 				case 0:
 					casilla = new Casilla(Color.FONDO_AMARILLOCLARO);
@@ -191,31 +186,39 @@ public class Maquina extends Jugador {
 				case 9:
 					casilla = new Casilla(Color.FONDO_GRISOSCURO);
 					break;
-				}	
-				for(i = 0 ; i < dificultad.getCasillas() ; i++) {
-					intentoCombinacion.anadirCasilla(casilla);
 				}
-		//		1.2.2. Contamos el número de pinchos que resultan de crear esta combinación
-				numeroPinchos = intentoCombinacion.calcularResultado(tablero.getCombinacionSecreta()).contarColocados()
-								+ intentoCombinacion.calcularResultado(tablero.getCombinacionSecreta()).contarNoColocados();
-		//			1.2.2.1. Si el número de pinchos es superior a 0, el color aleatorio que hemos probado está en la combinación secreta
-		//					y lo colocamos dentro de un array que usaremos para reunir todos los colores que están en la secreta
 				
-		//			1.2.2.2. Si el número de pinchos ES IGUAL 0, el color aleatorio que hemos probado NO está en la combinación secreta
-		//					y lo colocamos dentro de un array de colores descartados
-				combinacion = intentoCombinacion;
+				for(i = 0 ; i < descartados.length && salir ; i++) {
+					if(descartados[k] != null && descartados[k].equals(casilla)) {
+						repetido = true;
+					}
+						//Terminar bucle
+				}
 				
-		//		1.2.2. Creamos una combinación en base al resultado de la combinación anterior
-			} else {
-		//			1.1.2.1. Comprobamos que el array de colores tenga algún espacio vacío
-		//				1.1.2.1.1. Si tiene algún espacio por rellenar, buscamos un nuevo color
-		//					1.1.2.1.1.1. Elegir color para seguir rellenando el array de colores de la combinación, repitiendo siempre que
-		//								el color ya este repetido
-				
-		//				1.1.2.1.2. Si no tiene ningún espacio para rellenar, colocamos los colores en sus correspondientes posiciones
-				
+			} while (repetido);
+			
+			for (i = 0; i < dificultad.getCasillas(); i++) {
+				intentoCombinacion.anadirCasilla(casilla);
 			}
-		}
+			
+			numeroPinchos = intentoCombinacion.contarPinchos(tablero);
+			
+			if (numeroPinchos != 0) {
+				while (colores[i] != null) {
+					i++;
+				} 
+				for(j = 0 ; j < numeroPinchos ; j++) {
+					colores[i] = casilla;
+					i++;
+				}
+			} else {
+				//Falta introducir el color en el array de descartados para que no se pueda elegir en la siguiente jugada
+			}
+			
+			
+			
+		//		1.2.2. Teniendo los colores de la combinación, buscar la posición de cada uno
+		}		
 		
 		return combinacion;
 	} //final crearIntento()

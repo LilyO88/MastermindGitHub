@@ -92,6 +92,15 @@ public class Combinacion implements Dibujable {
 		return noColocado;
 	}
 	
+	public int contarPinchos(Tablero tablero) {
+		int pinchos = 0;
+		
+		pinchos = calcularResultado(tablero.getCombinacionSecreta()).contarColocados() 
+				+ calcularResultado(tablero.getCombinacionSecreta()).contarNoColocados();
+		
+		return pinchos;
+	}
+	
 	public String dibujar() {		
 		String cadena = "";
 		
