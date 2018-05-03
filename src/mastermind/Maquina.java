@@ -133,14 +133,13 @@ public class Maquina extends Jugador {
 		return combinacion;
 	}
 
-	public Combinacion crearIntento(LinkedList<Jugada> tablero, int intento) {
-		Combinacion combinacion = new Combinacion(dificultad);
-		LinkedList<Casilla> colocados = new LinkedList<>(), descolocados = new LinkedList<>(), 
-				descartados = new LinkedList<>();
-		int i, aleatorioColor;
+	public Combinacion crearIntento(Tablero tablero, int intento) {
+		Combinacion combinacion = new Combinacion(dificultad), colores = new Combinacion(dificultad), intentoCombinacion = new Combinacion(dificultad),
+				definitiva = new Combinacion(dificultad);
+		Jugada resultadoAnterior = new Jugada(tablero.getTablero().getLast().getResultado());
 		Casilla casilla = null;
 		Random rnd = new Random();
-		Jugada jugadaAnterior = new Jugada(tablero.getLast().getCombinacion());
+		int i, aleatorioColor, numeroPinchos = 0, descartados[] = new int[dificultad.getCasillas()];
 		
 		//1. Según el modo de juego la máquina crea una estrategia u otra
 		//	1.1. Dificultad fácil y media
@@ -194,11 +193,26 @@ public class Maquina extends Jugador {
 					break;
 				}	
 				for(i = 0 ; i < dificultad.getCasillas() ; i++) {
-					combinacion.anadirCasilla(casilla);
+					intentoCombinacion.anadirCasilla(casilla);
 				}
+		//		1.2.2. Contamos el número de pinchos que resultan de crear esta combinación
+				numeroPinchos = intentoCombinacion.calcularResultado(tablero.getCombinacionSecreta()).contarColocados()
+								+ intentoCombinacion.calcularResultado(tablero.getCombinacionSecreta()).contarNoColocados();
+		//			1.2.2.1. Si el número de pinchos es superior a 0, el color aleatorio que hemos probado está en la combinación secreta
+		//					y lo colocamos dentro de un array que usaremos para reunir todos los colores que están en la secreta
+				
+		//			1.2.2.2. Si el número de pinchos ES IGUAL 0, el color aleatorio que hemos probado NO está en la combinación secreta
+		//					y lo colocamos dentro de un array de colores descartados
+				combinacion = intentoCombinacion;
+				
 		//		1.2.2. Creamos una combinación en base al resultado de la combinación anterior
 			} else {
-		//			1.1.2.1. Comprobamos el resultado de la jugada anterior
+		//			1.1.2.1. Comprobamos que el array de colores tenga algún espacio vacío
+		//				1.1.2.1.1. Si tiene algún espacio por rellenar, buscamos un nuevo color
+		//					1.1.2.1.1.1. Elegir color para seguir rellenando el array de colores de la combinación, repitiendo siempre que
+		//								el color ya este repetido
+				
+		//				1.1.2.1.2. Si no tiene ningún espacio para rellenar, colocamos los colores en sus correspondientes posiciones
 				
 			}
 		}
