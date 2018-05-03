@@ -72,7 +72,7 @@ public class Controlador {
 				break;
 		} //switch menú1		
 			
-			volverJugar = Teclado.leerBooleanSN("\n¿Quiere jugar una nueva partida?");
+			volverJugar = Teclado.leerBooleanSN("\n¿Quiere jugar una nueva partida? Sí o No");
 			if(!volverJugar) {
 				System.out.println("¡Hasta pronto!");
 				salir = true;

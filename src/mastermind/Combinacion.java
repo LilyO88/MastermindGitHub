@@ -36,6 +36,10 @@ public class Combinacion implements Dibujable {
 		}
 	}
 	
+	public void anadirCasillaPosicion(Casilla casilla, int posicionCasilla) {
+		combinacion[posicionCasilla] = casilla;
+	}
+	
 	public Combinacion calcularResultado(Combinacion combinacionSecreta) {
 		Combinacion resultado = new Combinacion(dificultad);
 		int i, j, contador = 0; //Contador es estático????????????????????
