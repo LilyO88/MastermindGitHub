@@ -10,9 +10,9 @@ public class Casilla implements Dibujable {
 		this.color = color;
 	}
 	
-//	public String getColor() {
-//		return color;
-//	}
+	public String getColor() {
+		return color;
+	}
 
 	public boolean equals(Object obj) {
 		boolean resultado = false;

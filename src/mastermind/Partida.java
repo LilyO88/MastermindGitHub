@@ -46,7 +46,7 @@ public class Partida {
 			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
 				System.out.println("\nIntento " + (i+1) + ":\n");
 				//El usuario crea la combinación
-				combinacion1 = ((Usuario)jugador1).crearCombinacion();
+				combinacion1 = ((Usuario)jugador1).crearIntento();
 				//Creamos la jugada con la combinación propuesta
 				jugada1 = new Jugada(combinacion1);
 				//Calculamos el resultado de dicha combinación

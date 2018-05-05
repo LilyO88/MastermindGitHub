@@ -61,24 +61,12 @@ public class Tablero implements TableroDibujable {
 		 */
 		
 		if (intento < 10) {
-			intermedio = ESPACIO + intento + ".         ";
-		} else if (intento >= 10 && intento < 100) {
-			intermedio = ESPACIO + intento + ".        ";
-		} else if (intento >= 100 && intento < 1000) {
-			intermedio = ESPACIO + intento + ".       ";
-		} else if (intento >= 1000 && intento < 10000) {
-			intermedio = ESPACIO + intento + ".      ";
-		} else if (intento >= 10000 && intento < 100000) {
-			intermedio = ESPACIO + intento + ".     ";
-		} else if (intento >= 100000 && intento < 1000000) {
 			intermedio = ESPACIO + intento + ".    ";
-		} else if (intento >= 1000000 && intento < 10000000) {
+		} else if (intento >= 10 && intento < 100) {
 			intermedio = ESPACIO + intento + ".   ";
-		} else if (intento >= 10000000 && intento < 100000000) {
+		} else if (intento >= 100 && intento < 1000) {
 			intermedio = ESPACIO + intento + ".  ";
-		} else if (intento >= 100000000 && intento < 1000000000) {
-			intermedio = ESPACIO + intento + ". ";
-		}
+		} 
 		return Color.FONDO_ROJO + intermedio + Color.RESET;
 	} //final dibujarPrimeraFilaIntermedio
 	
@@ -101,7 +89,7 @@ public class Tablero implements TableroDibujable {
 	} //final dibujarSegundaFilaInicio
 	
 	private String dibujarSegundaFilaIntermedio() {
-		final String DOCEESPACIOS = "            ";
+		final String SIETEESPACIOS = "       ";
 		
 		/*
 		 * 1. Construir una cadena que se sitúa entre las dos jugadas
@@ -109,11 +97,11 @@ public class Tablero implements TableroDibujable {
 		 * 	 que suman 12 caracteres. Se colocarán 12 espacios en blanco
 		 */
 
-		return Color.FONDO_ROJO + DOCEESPACIOS + Color.RESET;
+		return Color.FONDO_ROJO + SIETEESPACIOS + Color.RESET;
 	} //final dibujarSegundaFilaIntermedio
 	
 	public void dibujarTableros(Tablero tablero2, int intento) {  //Buena
-		final int UNESPACIO = 1, DOSESPACIOS = 2, TRESESPACIOS = 3, SEISESPACIOS = 6, DOCEESPACIOS = 12, 
+		final int UNESPACIO = 1, DOSESPACIOS = 2, TRESESPACIOS = 3, SEISESPACIOS = 6, SIETEESPACIOS = 7, 
 				OCUPACOMB = (6 * dificultad.getCasillas()), OCUPARESULT = (3 * dificultad.getCasillas());
 		final String ESPACIO = " ";
 		String espaciosVacios = "";
@@ -125,16 +113,15 @@ public class Tablero implements TableroDibujable {
 			//Banda coloreada de espacios, que simulan la parte superior del tablero
 			for(i = 0 ; i < largo ; i++) {
 				espaciosVacios = espaciosVacios + ESPACIO;
-			}					
+			}	
+			
 			//Recorremos todas las jugadas que contiene el tablero y las mostramos en pantalla
 			for (int j = 0; j < tablero.size(); j++) {
 				if (j == 0) {
-				System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET + "\n"
-						+ dibujarPrimeraFilaInicio(j + 1)
-						+ tablero.get(j).dibujarPrimeraFilaJugada(dificultad) + "\n"
-						+ dibujarSegundaFilaInicio()
-						+ tablero.get(j).dibujarSegundaFilaJugada(dificultad) + "\n"
-						+ Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+				System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET 
+						+ "\n" + dibujarPrimeraFilaInicio(j + 1) + tablero.get(j).dibujarPrimeraFilaJugada(dificultad) 
+						+ "\n" + dibujarSegundaFilaInicio() + tablero.get(j).dibujarSegundaFilaJugada(dificultad) 
+						+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 				} else {
 					System.out.println(dibujarPrimeraFilaInicio(j + 1)
 							+ tablero.get(j).dibujarPrimeraFilaJugada(dificultad) + "\n"
@@ -144,7 +131,7 @@ public class Tablero implements TableroDibujable {
 				}
 			} 			
 		} else if(dificultad == Dificultad.MEDIO) {
-			largo = UNESPACIO + (2 * OCUPACOMB) + (2 * TRESESPACIOS) + (2 * OCUPARESULT) + (2 * DOSESPACIOS) + DOCEESPACIOS;
+			largo = UNESPACIO + (2 * OCUPACOMB) + (2 * TRESESPACIOS) + (2 * OCUPARESULT) + (2 * DOSESPACIOS) + SIETEESPACIOS;
 			
 			for(i = 0 ; i < largo ; i++) {
 				espaciosVacios = espaciosVacios + ESPACIO;
@@ -152,37 +139,37 @@ public class Tablero implements TableroDibujable {
 			for (int j = 0; j < tablero.size(); j++) {
 				if (j == 0) {
 				System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET 
-						+ "\n" + dibujarPrimeraFilaInicio(j + 1) + tablero.get(j).dibujarPrimeraFilaJugada(dificultad)
-						+ dibujarPrimeraFilaIntermedio(j + 1) + tablero2.getTablero().get(j).dibujarPrimeraFilaJugada(dificultad)
-						+ "\n" + dibujarSegundaFilaInicio() + tablero.get(j).dibujarSegundaFilaJugada(dificultad) 
-						+ dibujarSegundaFilaIntermedio() + tablero2.getTablero().get(j).dibujarSegundaFilaJugada(dificultad)
+						+ "\n" + dibujarPrimeraFilaInicio(j + 1) + tablero2.getTablero().get(j).dibujarPrimeraFilaJugada(dificultad)
+						+ dibujarPrimeraFilaIntermedio(j + 1) + tablero.get(j).dibujarPrimeraFilaJugada(dificultad)
+						+ "\n" + dibujarSegundaFilaInicio() + tablero2.getTablero().get(j).dibujarSegundaFilaJugada(dificultad)
+						+ dibujarSegundaFilaIntermedio() + tablero.get(j).dibujarSegundaFilaJugada(dificultad)
 						+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 				} else {
-					System.out.println(dibujarPrimeraFilaInicio(j + 1) + tablero.get(j).dibujarPrimeraFilaJugada(dificultad)
-							+ dibujarPrimeraFilaIntermedio(j + 1) + tablero2.getTablero().get(j).dibujarPrimeraFilaJugada(dificultad)
-							+ "\n" + dibujarSegundaFilaInicio() + tablero.get(j).dibujarSegundaFilaJugada(dificultad) 
-							+ dibujarSegundaFilaIntermedio() + tablero2.getTablero().get(j).dibujarSegundaFilaJugada(dificultad)
+					System.out.println(dibujarPrimeraFilaInicio(j + 1) + tablero2.getTablero().get(j).dibujarPrimeraFilaJugada(dificultad)
+							+ dibujarPrimeraFilaIntermedio(j + 1) + tablero.get(j).dibujarPrimeraFilaJugada(dificultad)
+							+ "\n" + dibujarSegundaFilaInicio() + tablero2.getTablero().get(j).dibujarSegundaFilaJugada(dificultad)
+							+ dibujarSegundaFilaIntermedio() + tablero.get(j).dibujarSegundaFilaJugada(dificultad)
 							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 				}
 			} 
 		} else {
-			largo = UNESPACIO + (2 * OCUPACOMB) + (2 * TRESESPACIOS) + (2 * OCUPARESULT) + (2 * DOSESPACIOS) + DOCEESPACIOS;
+			largo = UNESPACIO + (2 * OCUPACOMB) + (2 * TRESESPACIOS) + (2 * OCUPARESULT) + (2 * DOSESPACIOS) + SIETEESPACIOS;
 			
 			for(i = 0 ; i < largo ; i++) {
 				espaciosVacios = espaciosVacios + ESPACIO;
 			}	
 			if (intento == 1) {
 			System.out.println(Color.FONDO_ROJO + espaciosVacios + Color.RESET 
-					+ "\n" + dibujarPrimeraFilaInicio(intento) + tablero.getLast().dibujarPrimeraFilaJugada(dificultad)
-					+ dibujarPrimeraFilaIntermedio(intento) + tablero2.getTablero().getLast().dibujarPrimeraFilaJugada(dificultad)
-					+ "\n" + dibujarSegundaFilaInicio() + tablero.getLast().dibujarSegundaFilaJugada(dificultad) 
-					+ dibujarSegundaFilaIntermedio() + tablero2.getTablero().getLast().dibujarSegundaFilaJugada(dificultad)
+					+ "\n" + dibujarPrimeraFilaInicio(intento) + tablero2.getTablero().getLast().dibujarPrimeraFilaJugada(dificultad)
+					+ dibujarPrimeraFilaIntermedio(intento) + tablero.getLast().dibujarPrimeraFilaJugada(dificultad)
+					+ "\n" + dibujarSegundaFilaInicio() +  tablero2.getTablero().getLast().dibujarSegundaFilaJugada(dificultad)
+					+ dibujarSegundaFilaIntermedio() + tablero.getLast().dibujarSegundaFilaJugada(dificultad)
 					+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 			} else {
-				System.out.println(dibujarPrimeraFilaInicio(intento) + tablero.getLast().dibujarPrimeraFilaJugada(dificultad)
-						+ dibujarPrimeraFilaIntermedio(intento) + tablero2.getTablero().getLast().dibujarPrimeraFilaJugada(dificultad)
-						+ "\n" + dibujarSegundaFilaInicio() + tablero.getLast().dibujarSegundaFilaJugada(dificultad) 
-						+ dibujarSegundaFilaIntermedio() + tablero2.getTablero().getLast().dibujarSegundaFilaJugada(dificultad)
+				System.out.println(dibujarPrimeraFilaInicio(intento) + tablero2.getTablero().getLast().dibujarPrimeraFilaJugada(dificultad)
+						+ dibujarPrimeraFilaIntermedio(intento) + tablero.getLast().dibujarPrimeraFilaJugada(dificultad)
+						+ "\n" + dibujarSegundaFilaInicio() +  tablero2.getTablero().getLast().dibujarSegundaFilaJugada(dificultad)
+						+ dibujarSegundaFilaIntermedio() + tablero.getLast().dibujarSegundaFilaJugada(dificultad)
 						+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 			}
 		}
@@ -190,7 +177,7 @@ public class Tablero implements TableroDibujable {
 	}
 
 	public void dibujarCombinacionSecreta(Tablero tablero2) {		
-		final int UNESPACIO = 1, DOSESPACIOS = 2, TRESESPACIOS = 3, SEISESPACIOS = 6, DOCEESPACIOS = 12, 
+		final int UNESPACIO = 1, DOSESPACIOS = 2, TRESESPACIOS = 3, SEISESPACIOS = 6, SIETEESPACIOS = 7, 
 				OCUPACOMB = (6 * dificultad.getCasillas()), OCUPARESULT = (3 * dificultad.getCasillas());
 		final String ESPACIO = " ";
 		String espaciosVacios = "";
@@ -220,18 +207,19 @@ public class Tablero implements TableroDibujable {
 							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 		} else {
 			jugada2 = new Jugada(tablero2.getCombinacionSecreta());
-			largo = UNESPACIO + (2 * OCUPACOMB) + (2 * TRESESPACIOS) + (2 * OCUPARESULT) + (2 * DOSESPACIOS) + DOCEESPACIOS;;
+			largo = UNESPACIO + (2 * OCUPACOMB) + (2 * TRESESPACIOS) + (2 * OCUPARESULT) + (2 * DOSESPACIOS) + SIETEESPACIOS;;
 			
 			for(i = 0 ; i < largo ; i++) {
 				espaciosVacios = espaciosVacios + ESPACIO;
 			}
 			
-			System.out.println(Color.FONDO_NEGRO + espaciosVacios + Color.RESET + "\n"
-							+ Color.FONDO_ROJO + espaciosVacios + Color.RESET + "\n"
-							+ dibujarSegundaFilaInicio() + jugada.dibujarPrimeraFilaJugada(dificultad) + dibujarSegundaFilaIntermedio()
-							+ jugada2.dibujarPrimeraFilaJugada(dificultad) + "\n" + dibujarSegundaFilaInicio() 
-							+ jugada.dibujarPrimeraFilaJugada(dificultad) + dibujarSegundaFilaIntermedio() 
-							+ jugada2.dibujarPrimeraFilaJugada(dificultad) + "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+			System.out.println(Color.FONDO_NEGRO + espaciosVacios + Color.RESET 
+							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET 
+							+ "\n" + dibujarSegundaFilaInicio() + jugada2.dibujarPrimeraFilaJugada(dificultad) + dibujarSegundaFilaIntermedio()
+							+ jugada.dibujarPrimeraFilaJugada(dificultad) 
+							+ "\n" + dibujarSegundaFilaInicio() + jugada2.dibujarPrimeraFilaJugada(dificultad) + dibujarSegundaFilaIntermedio() 
+							+ jugada.dibujarPrimeraFilaJugada(dificultad) 
+							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 		}
 	} //final dibujarCombinacionSecreta
 	

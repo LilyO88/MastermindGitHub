@@ -1,5 +1,7 @@
 package mastermind;
 
+import java.util.LinkedList;
+
 import utilidades.Color;
 
 public class Combinacion implements Dibujable {
@@ -41,31 +43,41 @@ public class Combinacion implements Dibujable {
 	}
 	
 	public Combinacion calcularResultado(Combinacion combinacionSecreta) {
+		LinkedList<Casilla> combinacionOculta = new LinkedList<>(),
+				combinacionIntento = new LinkedList<>();
 		Combinacion resultado = new Combinacion(dificultad);
-		int i, j, contador = 0; //Contador es estático????????????????????
+		int i, j;
+		
+		//Introducir las combinaciones en los mapas para poder trabajar con ellos
+		for(i = 0 ; i < combinacion.length ; i++) {
+			combinacionIntento.add(this.getCasilla(i));
+		}
+		for(i = 0 ; i < combinacionSecreta.getCombinacion().length ; i++) {
+			combinacionOculta.add(combinacionSecreta.getCasilla(i));
+		}
 		
 		//Coincide posición y color 
-		for(i = 0 ; i < combinacionSecreta.getCombinacion().length ; i++) {
-			if(combinacion[i].equals(combinacionSecreta.combinacion[i])) {
+		for(i = 0 ; i < combinacionOculta.size() ; i++) {
+			if(combinacionOculta.get(i).equals(combinacionIntento.get(i))) {
 				resultado.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-				contador++;
+				combinacionOculta.remove(i);
+				combinacionIntento.remove(i);
+				i--;
 			}
-		}		
+		}	
 		//Coincide color
-		for(i = 0 ; i < combinacionSecreta.getCombinacion().length ; i++) {
-			for(j = 0 ; j < combinacionSecreta.getCombinacion().length ; j++) {
-				if (combinacion[i].equals(combinacionSecreta.combinacion[j]) && i != j) {
+		for(i = 0 ; i < combinacionOculta.size() ; i++) {
+			for(j = 0 ; j < combinacionIntento.size() ; j++) {
+				if(combinacionOculta.get(i).equals(combinacionIntento.get(j))) {
 					resultado.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
-					contador++;
+					combinacionIntento.remove(j);
+					j--;
 				}
 			}
-		}		
+		}	
 		//No está
-		if(contador < combinacionSecreta.getCombinacion().length) {
-			for(i = contador ; i < combinacion.length ; i++) {
-				resultado.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
-				contador++;
-			}
+		for(i = 0 ; i < combinacionOculta.size() ; i++) {
+			resultado.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
 		}	
 		return resultado; //devolver resultado
 	}
