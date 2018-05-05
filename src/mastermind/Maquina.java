@@ -1,13 +1,18 @@
 package mastermind;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Random;
 
 import utilidades.Color;
 
 public class Maquina extends Jugador {
 	
-//	private HashMap <Jugada, Boolean> intentos; //Mejor TreeMap para comprobar luego la mejor jugada //De Tablero o de máquina????
+	private LinkedHashMap<Integer, Casilla> coloresEncontrados = new LinkedHashMap<>(), coloresDescartados = new LinkedHashMap<>(),
+			listaPosicionColorDescartado = new LinkedHashMap<>();
+	private LinkedList<Casilla> listaColoresDefinitivos = new LinkedList<>();
+//	private LinkedList<Integer> listaPosicionesDefinitivos = new LinkedList<>();
+	private int encontrados = 0, descartados = 0, contadorColoresEncontrados = 0, intentosColocar = 0, contarColoresListaColoresDefinitivos = 0;
 	
 	Maquina(Dificultad dificultad) {
 		this.dificultad = dificultad; //heredado del padre Jugador
@@ -69,14 +74,11 @@ public class Maquina extends Jugador {
 	}
 
 	public Combinacion crearIntento(Tablero tablero, int intento) {
-		Combinacion intentoCombinacion = new Combinacion(dificultad), combinacionDefinitiva = new Combinacion(dificultad);
+		Combinacion intentoCombinacion = new Combinacion(dificultad);
 		Jugada jugadaIntento = new Jugada(intentoCombinacion);
-		Casilla casilla = new Casilla(Color.FONDO_NEGRO);
-		LinkedHashMap<Integer, Casilla> coloresEncontrados = new LinkedHashMap<>(), coloresDescartados = new LinkedHashMap<>();
-		LinkedHashMap<Integer, Integer> posicionesOcupadas = new LinkedHashMap<>();
+		Casilla casilla = new Casilla(Color.FONDO_NEGRO), casillaDescartado = new Casilla(Color.FONDO_NEGRO);		
 		Random rnd = new Random();
-		int i = 0, j = 0, numeroPinchos = 0, aleatorioColor = -1, aleatorioPosicion = -1, aleatorioDescartado = -1, contadorColoresEncontrados = 0,
-				contadorPosicionesEncontradas = 0, encontrados = 0, descartados = 0, intentosColocar = 0;
+		int i = 0, j = 0, numeroPinchos = 0, aleatorioColor = -1, aleatorioPosicion = -1, aleatorioDescartado = 0;
 		boolean repetida = false;		
 		
 		//1. Según el modo de juego la máquina crea una estrategia u otra
@@ -108,22 +110,19 @@ public class Maquina extends Jugador {
 				} else {	//fin primer intento
 					
 					do {
-						repetida = false;
-						
-						for (i = 0; i < tablero.getTablero().size() ; i++) {
+						repetida = false;					
 		//				1.2.1.2.1. Comprobar el resultado de la jugada anterior
-							numeroPinchos = tablero.getTablero().get(i).getResultado().contarColocados();
-							if (numeroPinchos != 0) { //Si hay algún pincho, el color está en la combinación secreta y lo guardamos
-								for (j = 0; j < numeroPinchos; j++) {
-									coloresEncontrados.put(encontrados, tablero.getTablero().get(i).getCombinacion().getCasilla(0)); //introducir color en la lista de coloresEncontrados
-									encontrados++;
-								}
-							} else { //Si no hay ningún pincho, el color no está en la combinación secreta y lo descartamos
-								coloresDescartados.put(descartados, tablero.getTablero().get(i).getCombinacion().getCasilla(0)); //introducir color en la lista de coloresDescartados
-								descartados++;
-							} 
-						}
-						
+						numeroPinchos = tablero.getTablero().getLast().getResultado().contarColocados();
+						if (numeroPinchos != 0) { //Si hay algún pincho, el color está en la combinación secreta y lo guardamos
+							for (j = 0; j < numeroPinchos; j++) {
+								coloresEncontrados.put(encontrados, tablero.getTablero().getLast().getCombinacion().getCasilla(0)); //introducir color en la lista de coloresEncontrados
+								encontrados++;
+							}
+						} else { //Si no hay ningún pincho, el color no está en la combinación secreta y lo descartamos
+							coloresDescartados.put(descartados, tablero.getTablero().getLast().getCombinacion().getCasilla(0)); //introducir color en la lista de coloresDescartados
+							descartados++;
+						} 
+									
 						if (coloresEncontrados.size() < dificultad.getCasillas()) { //Busca colores
 		// 				1.2.1.2.2. Elegir un color que no haya sido usado, que no esté ni en colores ni en descartados
 							do {
@@ -142,85 +141,89 @@ public class Maquina extends Jugador {
 
 							
 							/*----------------------------BUSCAR POSICIONES--------------------------*/		
-
-	//		1.2.2. Si colores contiene dentro igual o mayor cantidad de colores que larga es la combinación, buscamos las posiciones
+							
+		//		1.2.2. Si colores contiene dentro igual o mayor cantidad de colores que larga es la combinación, buscamos las posiciones
 							if (coloresEncontrados.size() >= dificultad.getCasillas()) {
-								do {
-									repetida = false;
-	//			1.2.2.1. Si es el primer intento de colocar, creamos una combinación con una casilla de un color encontrado y el 
-	//					resto de un color descartado
-									if(intentosColocar == 0) {
-										coloresEncontrados.get(contadorColoresEncontrados);
-										aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
-	// 				1.2.2.1.1. Asignar un color descartado a casilla, para que con un color que sabemos que esta en la combinación secreta ir 
-	//						cambiando la posición hasta encontrar un pincho rojo y asignar la posición a ese color, ya que el color descartado
-	//						no nos aparecen pinchos en el resultado
-										aleatorioDescartado = rnd.nextInt(coloresDescartados.size());
-										casilla = casilla.seleccionarColorCasilla(dificultad, aleatorioDescartado);	
-	//				1.2.2.1.2. Con la posición elegida aleatoriamente, probamos el color encontrado en esa posición, y el resto las rellenamos 
-	//						de un color descartado
-										for (i = 0; i < dificultad.getCasillas(); i++) {
-											if (i != aleatorioPosicion) { //Color descartado
-												intentoCombinacion.anadirCasilla(casilla);
-											} else {
-												intentoCombinacion.anadirCasilla(coloresEncontrados.get(contadorColoresEncontrados));
+		// 			1.2.2.1. Si es la primera vez que intentamos colocar una casilla, creamos la combinación teniendo solo en cuenta un color que esté
+								if(intentosColocar == 0) {
+									casilla = coloresEncontrados.get(contadorColoresEncontrados);
+									casillaDescartado = coloresDescartados.get(aleatorioDescartado);
+									aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());									
+									for (i = 0 ; i < dificultad.getCasillas() ; i++) {
+										if(i != aleatorioPosicion) {
+											intentoCombinacion.anadirCasilla(casillaDescartado);
+										} else {
+											intentoCombinacion.anadirCasilla(casilla);
+										}
+									}
+//									//Para poder buscar luego dentro de ella aunque aún no se haya encontrado ningún color
+//									for (i = 0 ; i < dificultad.getCasillas() ; i++) {
+//										listaColoresDefinitivos.add(new Casilla(Color.FONDO_NEGRO));
+//									}
+									
+									intentosColocar++;
+		// 			1.2.2.2. Si no es la primera vez que intentamos colocar una casilla, creamos la combinación teniendo en cuenta el resultado de la jugada anterior
+								} else {
+		//				1.2.2.2.1. Comprobar la combinación anterior para crear la siguiente
+									numeroPinchos = tablero.getTablero().getLast().getResultado().contarColocados();
+									if (numeroPinchos != 0) { //Si hay un pincho rojo, hemos encontrado la posición del color
+										for(i = 0 ; i < dificultad.getCasillas() ; i++) { //Buscamos la posición que corresponde al color
+											if(tablero.getTablero().getLast().getCombinacion().getCasilla(i)
+													.equals(casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados))) {
+												//Introducimos en la lista el color y la posición que ocupa
+												casilla = casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados); //?????????????????????
+												listaColoresDefinitivos.add(i, casilla);
 											}
 										}
-										intentosColocar++;
-	//			1.2.2.2. El resto de intentos de colocar, comprobamos la anterior jugada, si hayamos un pincho rojo, asignamos el color   
-	//					a la posición y pasamos a buscar la posición del siguiente color
-									} else {
-	//				1.2.2.2.1. Comprobamos la combinación anterior
-										numeroPinchos = tablero.getTablero().getLast().calcularResultado(tablero.getCombinacionSecreta()).contarColocados();
-										if(numeroPinchos != 0) {
-											for(i = 0 ; i < dificultad.getCasillas() ; i++) {
-												if(tablero.getTablero().getLast().getCombinacion().getCasilla(i).equals(coloresEncontrados.get(contadorColoresEncontrados))){
-													combinacionDefinitiva.anadirCasillaPosicion(coloresEncontrados.get(contadorColoresEncontrados), i);
-													posicionesOcupadas.put(contadorPosicionesEncontradas, i);
-													contadorPosicionesEncontradas++;
-												}
+										aleatorioDescartado = rnd.nextInt(coloresDescartados.size()); //Cambiamos el color de prueba por estética
+										contadorColoresEncontrados++; //Cambiamos al siguiente color para buscar su posición
+									} else { //Si no hay un pincho rojo 
+										for(i = 0 ; i < dificultad.getCasillas() ; i++) { //Buscamos la posición que corresponde al color
+											if(tablero.getTablero().getLast().getCombinacion().getCasilla(i)
+													.equals(casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados))) {
+												//Introducimos el color y la posición en la lista para saber que no se encuentra en esta posición
+												listaPosicionColorDescartado.put(i, casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados));
 											}
-											contadorColoresEncontrados++;
+										}
+									}
+									
+//									for(i = 0 ; i < listaColoresDefinitivos.size() ; i++) {
+//										if(!listaColoresDefinitivos.get(i).equals(new Casilla(Color.NEGRO)))
+//											contarColoresListaColoresDefinitivos++;
+//									}
+									
+									
+									if (listaColoresDefinitivos.size() < dificultad.getCasillas() || listaColoresDefinitivos.isEmpty()) {
+			//				1.2.2.2.2. Crear combinación seleccionando una posición para uno de los colores encontrados, y rellenar el resto de posiciones 
+			//						con un color descartado
+										casilla = coloresEncontrados.get(contadorColoresEncontrados);
+										casillaDescartado = coloresDescartados.get(aleatorioDescartado);
+										if (!listaColoresDefinitivos.isEmpty()) {
+											do {
+												aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
+											} while ((listaPosicionColorDescartado.get(aleatorioPosicion).equals(casilla))); //Si ese color ya ha ocupado esa posición
 										} else {
-	//				1.2.2.2.2. Comprobamos que posicionesOcupadas ocupe lo mismo que una combinación
-	//					1.2.2.2.2.1. Si posicionesOcupadas mide lo mismo que una combinación, hemos encontrado la combinación secreta y la enviamos
-											if(posicionesOcupadas.size() == dificultad.getCasillas()) {
-												intentoCombinacion = combinacionDefinitiva;
+											do {
+												aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
+											} while (!listaColoresDefinitivos.get(aleatorioPosicion).equals(null) //Si la posición está ocupada por otro color
+													|| (listaPosicionColorDescartado.get(aleatorioPosicion)
+															.equals(casilla))); //Si ese color ya ha ocupado esa posición
+										}
+										for (i = 0; i < dificultad.getCasillas(); i++) {
+											if (i != aleatorioPosicion) {
+												intentoCombinacion.anadirCasilla(casillaDescartado);
 											} else {
-	//					1.2.2.2.2.2. Si posicionesOcupadas no mide lo mismo que una combinación, probamos otra posición con el color que corresponda
-	// 						1.2.2.2.2.2.1. Elegir una posición que no haya sido usada, que no esté posicionesOcupadas
-												do {
-													aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
-												} while (posicionesOcupadas.containsValue(aleatorioPosicion));
-	// 						1.2.2.2.2.2.2. Asignar un color descartado a casilla, para que con un color que sabemos que esta en la combinación secreta  
-	//							ir cambiando la posición hasta encontrar un pincho rojo y asignar la posición a ese color, ya que el color descartado
-	//							no nos aparecen pinchos en el resultado
-												aleatorioDescartado = rnd.nextInt(coloresDescartados.size());
-												casilla = casilla.seleccionarColorCasilla(dificultad, aleatorioDescartado);
-										
-	//						1.2.2.2.2.2.3. Con la posición elegida aleatoriamente, probamos el color encontrado en esa posición, y el resto las  
-	//							rellenamos de un color descartado
-												for (i = 0; i < dificultad.getCasillas(); i++) {
-													if (i != aleatorioPosicion) { // Color descartado
-														intentoCombinacion.anadirCasilla(casilla);
-													} else {
-														intentoCombinacion.anadirCasilla(coloresEncontrados.get(contadorColoresEncontrados));
-													}
-												}
-	//						1.2.2.2.2.2.4. Si la combinación está dentro del tablero generamos otra
-												jugadaIntento.calcularResultado(tablero.getCombinacionSecreta());
-												if(tablero.getTablero().contains(jugadaIntento)) {
-													repetida = true;
-												}									
-												intentosColocar++;
+												intentoCombinacion.anadirCasilla(casilla);
 											}
-										}	
-									}				
-								} while(repetida);
+										} 
+									} else {
+										for(i = 0 ; i < listaColoresDefinitivos.size() ; i++) {
+											intentoCombinacion.anadirCasillaPosicion(listaColoresDefinitivos.get(i), i);
+										}
+									}
+									intentosColocar++;
+								} //fin no primer intento de buscar posición								
 							}
-							
-							
-
 						}
 					} while (repetida);						
 				} //Fin intentos distintos de 1										
