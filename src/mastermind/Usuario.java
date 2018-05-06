@@ -3,13 +3,26 @@ package mastermind;
 import utilidades.Color;
 import utilidades.Teclado;
 import utilidades.Teclado.Rango;
-
+/**
+ * 
+ * @author Lidia
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Usuario extends Jugador {
-	
+	/**
+	 * Construye un objeto de tipo Usuario hijo de Jugador
+	 * @param dificultad Almacena las características de la partida y sus elementos
+	 */
 	Usuario(Dificultad dificultad) {
 		this.dificultad = dificultad;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see mastermind.Jugador#crearCombinacionSecreta()
+	 */
 	@Override
 	public Combinacion crearCombinacionSecreta() {
 		Combinacion combinacion = new Combinacion(dificultad);
@@ -61,6 +74,14 @@ public class Usuario extends Jugador {
 		return combinacion;
 	} //final crearCombinacion
 	
+	/**
+	 * Crea una combinación para intentar adivinar la combinación secreta del otro jugador
+	 * @return Combinación creada por el objeto como intento de adivinar la combinación secreta del rival
+	 * @see mastermind.Dificultad#getCasillas()
+	 * @see mastermind.Dificultad#getColores()
+	 * @see mastermind.Casilla#seleccionarColorCasilla(Dificultad, int)
+	 * @see mastermind.Combinacion#anadirCasilla(Casilla) 
+	 */
 	public Combinacion crearIntento() {
 		Combinacion intento = new Combinacion(dificultad);
 		Casilla casilla = new Casilla(Color.FONDO_NEGRO);
@@ -84,6 +105,17 @@ public class Usuario extends Jugador {
 		return intento;
 	}
 
+	/**
+	 * Crea una combinación que sirve de resultado, si no se introduce bien lanza un mensaje de error y la pide de nuevo
+	 * @param combinacion Combinación de la jugada que el jugador ha propuesto para adivinar la combinación secreta
+	 * @param combinacionSecreta Combinación secreta que el rival debe adivinar
+	 * @return Combinación que contenga el resultado de comparar la combinación del jugador con la combinación secreta 
+	 * que intenta adivinar
+	 * @see mastermind.Combinacion#calcularResultado(Combinacion)
+	 * @see mastermind.Combinacion#contarColocados()
+	 * @see mastermind.Combinacion#anadirCasilla(Casilla)
+	 * @see mastermind.Dificultad#getCasillas()
+	 */
 	public Combinacion colocarPinchos(Combinacion combinacion, Combinacion combinacionSecreta) { 
 		Combinacion resultado = new Combinacion(dificultad);
 		boolean repetir = false;

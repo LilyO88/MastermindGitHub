@@ -10,17 +10,55 @@ import utilidades.Color;
  */
 public class Partida {
 
+	/**
+	 * Almacena las características de la partida y sus elementos
+	 */
 	private Dificultad dificultad;
-	private Jugador jugador1, jugador2;
+	/**
+	 * Jugador que contiene un atributo tipo tablero que almacena todos los datos sobre la partida del jugador
+	 */
+	private Jugador jugador1;
+	/**
+	 * Jugador que contiene un atributo tipo tablero que almacena todos los datos sobre la partida del jugador
+	 */
+	private Jugador jugador2;
 	
-	//Constructor
+	/**
+	 * Constructor de partida que tiene dos jugadores y define los aspectos de la misma con la dificultad
+	 * @param dificultad Almacena las características de la partida y sus elementos
+	 * @param jugador1 Jugador que contiene un atributo tipo tablero que almacena todos los datos sobre la partida del jugador
+	 * @param jugador2 Jugador que contiene un atributo tipo tablero que almacena todos los datos sobre la partida del jugador
+	 */
 	public Partida(Dificultad dificultad, Jugador jugador1, Jugador jugador2) {
 		this.dificultad = dificultad;
 		this.jugador1 = jugador1;
 		this.jugador2 = jugador2;
 	}
 	
-	//Según el nivel de dificultad definir los atributos de la clase
+	/**
+	 * Define todos las fases por las que pasa el juego, crea los jugadores con sus tableros que contienen combinación secreta y 
+	 * combinaciones para intentar adivinar la secreta y analizando los resultados devuelve un resultado ganador de la partida
+	 * @see mastermind.Maquina#crearCombinacionSecreta()
+	 * @see mastermind.Maquina#crearIntento(Tablero, int)
+	 * @see mastermind.Tablero#getCombinacionSecreta()
+	 * @see mastermind.Tablero#anadirJugada(Jugada)
+	 * @see mastermind.Tablero#dibujarTableros(Tablero, int)
+	 * @see mastermind.Tablero#dibujarCombinacionSecreta(Tablero, int)
+	 * @see mastermind.Combinacion#dibujar()
+	 * @see mastermind.Combinacion#contarColocados()
+	 * @see mastermind.Combinacion#contarNoColocados()
+	 * @see mastermind.Combinacion#getCombinacion()
+	 * @see mastermind.Dificultad#getIntentos()
+	 * @see mastermind.Dificultad#getCasillas()
+	 * @see mastermind.Usuario#crearIntento()
+	 * @see mastermind.Usuario#crearCombinacionSecreta()
+	 * @see mastermind.Usuario#colocarPinchos(Combinacion, Combinacion)
+	 * @see mastermind.Jugada#calcularResultado(Combinacion)
+	 * @see mastermind.Jugada#getResultado()
+	 * @see mastermind.Jugada#dibujarJugada(Dificultad, int)
+	 * @see mastermind.Jugada#setResultado(Combinacion)
+	 * @see #pausar()
+	 */
 	public void jugar() {
 		Tablero tablero1, tablero2;
 		Jugada jugada1, jugada2;
@@ -279,6 +317,9 @@ public class Partida {
 		
 	} //final de jugar
 	
+	/**
+	 * Pausa la ejecución de la siguiente línea de código durante tanto tiempo como le indiquemos
+	 */
 	private void pausar() {
 		try {
 			Thread.sleep(2000);

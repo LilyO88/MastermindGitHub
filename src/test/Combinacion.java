@@ -1,4 +1,4 @@
-package mastermind;
+package test;
 
 import java.util.LinkedList;
 
@@ -10,7 +10,7 @@ import utilidades.Color;
  * @since 1.0
  *
  */
-public class Combinacion implements Dibujable {
+public class Combinacion {
 	/**
 	 * Almacena un conjunto de determinado tamaño de casillas que juntas forman una combinación
 	 */

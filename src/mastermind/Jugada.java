@@ -13,12 +13,12 @@ public class Jugada implements JugadaDibujable {
 	/**
 	 * Almacena la combinación creada por el jugador, que contiene un array de casillas con la combinación de casillas para un intento concreto
 	 */
-	Combinacion combinacion;
+	private Combinacion combinacion;
 	/**
 	 * Almacena la combinación resultante de comparar la combinación secreta con la propuesta por el jugador, que contiene un array de 
 	 * casillas con la respuesta para un intento concreto
 	 */
-	Combinacion resultado;
+	private Combinacion resultado;
 	
 	/**
 	 * Contiene la combinación propuesta por el jugador y la combinación resultado resultante de la comparación de la combinación propuesta con 

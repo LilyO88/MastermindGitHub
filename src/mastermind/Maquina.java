@@ -6,23 +6,64 @@ import java.util.Random;
 import java.util.TreeMap;
 
 import utilidades.Color;
-
+/**
+ * 
+ * @author Lidia
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Maquina extends Jugador {
-
+	/**
+	 * Lista que almacena una posición y un color donde se encuentra en la combinación secreta, 
+	 * para luego crear una combinación con la lista de definitivos
+	 */
 	private LinkedHashMap<Integer, Casilla> listaPosicionColorDefinitivo = new LinkedHashMap<>();
+	/**
+	 * Lista de combinaciones que ya hemos utilizado y no queremos que se vuelvan a utilizar
+	 */
 	private LinkedHashMap<Combinacion, Boolean> combinacionesProbadas = new LinkedHashMap<>();
+	/**
+	 * Mapa posición utilizada para un color que hemos descartado
+	 */
 	private TreeMap<Integer, Casilla> listaPosicionColorDescartado = new TreeMap<>();
-	private LinkedList<Casilla> coloresEncontrados = new LinkedList<>(), coloresDescartados = new LinkedList<>();
-	private int encontrados = 0, intentosColocar = 0, contadorColores = 0,  contadorColoresEncontrados = 0;
-
+	/**
+	 * Lista de casillas de color que están en la combinación secreta y que hemos encontrado
+	 */
+	private LinkedList<Casilla> coloresEncontrados = new LinkedList<>();
+	/**
+	 * Lista de casillas de color que no están en la combinación secreta y que hemos encontrado
+	 */
+	private LinkedList<Casilla> coloresDescartados = new LinkedList<>();
+	/**
+	 * Número de colores que están en la combinación secreta y hemos encontrado
+	 */
+	private int encontrados = 0;
+	/**
+	 * Número de veces que se ha intentado colocar una casilla en una posición cualquiera
+	 */
+	private int intentosColocar = 0;
+	/**
+	 * Número de colores que hemos introducido en la lista de coloresEncontrados o coloresDescartados
+	 */
+	private int contadorColores = 0;
+	/**
+	 * Número de color de la lista de coloresEncontrados
+	 */
+	private int contadorColoresEncontrados = 0;
+	
+	/**
+	 * Construye un objeto de tipo máquina
+	 * @param dificultad Almacena las características de la partida y sus elementos
+	 */
 	Maquina(Dificultad dificultad) {
 		this.dificultad = dificultad; // heredado del padre Jugador
-		// SI modo dificil hacer un hashMap
-		// if (dificultad == Dificultad.DIFICIL) {
-		// intentos = new HashMap<>();
-		// }
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see mastermind.Jugador#crearCombinacionSecreta()
+	 */
 	@Override
 	public Combinacion crearCombinacionSecreta() {
 		Combinacion combinacion = new Combinacion(dificultad);
@@ -76,6 +117,26 @@ public class Maquina extends Jugador {
 		return combinacion;
 	}
 
+	/**
+	 * Crea una combinación para intentar adivinar la combinación secreta del otro jugador
+	 * @param tablero Tablero que almacena los elementos propios del tablero, combinación secreta y una lista jugadas
+	 * @param intento Número que almacena el número de intento por el que va la partida
+	 * @return Combinación creada por el objeto como intento de adivinar la combinación secreta del rival
+	 * @see #crearCombinacionSecreta()
+	 * @see mastermind.Casilla#seleccionarColorCasilla(Dificultad, int)
+	 * @see mastermind.Dificultad#getCasillas()
+	 * @see mastermind.Dificultad#getColores()
+	 * @see mastermind.Combinacion#anadirCasilla(Casilla)
+	 * @see mastermind.Combinacion#getCasilla(int)
+	 * @see mastermind.Combinacion#contarColocados()
+	 * @see mastermind.Combinacion#getCombinacion()
+	 * @see mastermind.Combinacion#anadirCasillaPosicion(Casilla, int)
+	 * @see mastermind.Tablero#getTablero()
+	 * @see mastermind.Jugada#getCombinacion()
+	 * @see mastermind.Jugada#getResultado()
+	 * @see mastermind.Casilla#equals(Object)
+	 * 
+	 */
 	public Combinacion crearIntento(Tablero tablero, int intento) {
 		Combinacion intentoCombinacion = new Combinacion(dificultad);
 		Casilla casilla = new Casilla(Color.FONDO_NEGRO), casillaDescartado = new Casilla(Color.FONDO_NEGRO);

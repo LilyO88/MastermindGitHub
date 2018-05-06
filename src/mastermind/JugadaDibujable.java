@@ -1,5 +1,11 @@
 package mastermind;
-
+/**
+ * 
+ * @author Lidia
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public interface JugadaDibujable {
 	
 	/**

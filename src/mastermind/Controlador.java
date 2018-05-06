@@ -22,6 +22,7 @@ public class Controlador {
 	/**
 	 * Modela una estructura que nos facilita controlar los menús internos
 	 * @see mastermind.Partida#jugar()
+	 * @see #mostrarNormas()
 	 */
 	public void Menu() {	
 		
@@ -82,9 +83,7 @@ public class Controlador {
 				break;
 		//	2.2. Ver normas		
 			case 2: 	
-				
-				//INTRODUCIR NORMAS
-
+				mostrarNormas();
 				volverJugar = Teclado.leerBooleanSN("\n¿Quiere jugar una nueva partida? Sí o No");
 				if(!volverJugar) {
 					System.out.println("¡Hasta pronto!");
@@ -105,5 +104,27 @@ public class Controlador {
 			
 	} //final menu()
 	
-	
+	/**
+	 * Nos muestra en pantalla las normas del juego
+	 */
+	private void mostrarNormas() {
+		System.out.println("Mastermind (en español, Mente maestra) es un juego de habilidad y lógica que consiste en "
+			    + "descubrir una secuencia de colores oculta.\n\nSe disponen de fichas de colores para: \n\n• Realizar "
+			    + "la combinación oculta.\n• Para intentar adivinarla.\n\nSe disponen además de fichas de colores para "
+			    + "indicar las respuestas:\n\n• Ficha bien colocada: ficha de color bien colocada pero sin indicar cuál."
+			    + "\n• Ficha colocada en otro lugar: ficha de color con el color correcto pero mal colocada.\nTampoco se "
+			    + "indica cuál.\n\nEl juego termina al averiguarse la combinación o bien al agotarse el número de intentos."
+			    + "\nRealizar tres modos de funcionamiento del juego:\n\n\n1. Modo fácil\n\nSe compone solamente de 1 "
+			    + "jugador. Realizar dos versiones del modo fácil:\n\n• El jugador es el usuario: la máquina pone la"
+			    + " combinación oculta y le va indicando al\n usuario las respuestas a sus intentos.\n• El jugador es la"
+			    + " máquina: el usuario pone la combinación oculta y le va indicando a la\n máquina las respuestas a sus"
+			    + " intentos.\n\nNúmero de casillas: 4\nNúmero de colores: 8\nRepetición de colores: no\nNúmero de"
+			    + " intentos: 10\n\n\n2. Modo medio\n\nSe compone de 2 jugadores: el usuario y la máquina.\n\nNúmero de"
+			    + " casillas: 5\nNúmero de colores: 8\nRepetición de colores: no\nNúmero de intentos: 15.\n\nSi en este"
+			    + " número de intentos no hay ningún ganador, ganará el que más fichas colocadas \ntenga en el último intento."
+			    + "\nEn caso de empate, el que más fichas colocadas en otro lugar tenga. En caso de empate,\nse considerará un "
+			    + "empate en dicha partida.\n\n\n 3. Modo difícil\n\nSe compone de 2 jugadores: la máquina contra la máquina."
+			    + "\n\nNúmero de casillas: 8\nNúmero de colores: 10\nRepetición de colores: sí\nNúmero de intentos: hasta que "
+			    + "uno de los dos gane.\n");
+	}
 }
