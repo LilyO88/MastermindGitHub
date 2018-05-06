@@ -18,5 +18,4 @@ public abstract class Jugador {
 	public void setTablero(Tablero tablero) {
 		this.tablero = tablero;
 	}
-	
 }

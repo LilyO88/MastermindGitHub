@@ -13,7 +13,7 @@ public class Usuario extends Jugador {
 	@Override
 	public Combinacion crearCombinacion() {
 		Combinacion combinacion = new Combinacion(dificultad);
-		Casilla casilla = null;
+		Casilla casilla = new Casilla(Color.FONDO_NEGRO);
 		boolean repetido;
 		int i, j, opcionColor;
 		
@@ -41,19 +41,17 @@ public class Usuario extends Jugador {
 				casilla = casilla.seleccionarColorCasilla(dificultad, (opcionColor - 1)); //-1 por la comunicación con el usuario
 		//2. Definir si se pueden repetir colores o no según el tipo de partida
 		//3. No se pueden repetir colores. Se comprueba si el color está
-		/*------------------------NO PUEDEN REPETIRSE LOS COLORES------------------------*/
-				if(!dificultad.getRepetir()) {
-					if(i==0) {
-						combinacion.anadirCasilla(casilla);					
-					} else {
-						for (j = 0 ; j < i && !repetido ; j++) { //falla cuando se repite
+		/*------------------------NO PUEDEN REPETIRSE LOS COLORES------------------------*/				
+				if(i==0) {
+					combinacion.anadirCasilla(casilla);					
+				} else {
+					for (j = 0 ; j < i && !repetido ; j++) { //falla cuando se repite
 		//	3.1. Si está repetido volver a pedir color			
-							if (casilla.equals(combinacion.getCasilla(j))) {
-								repetido = true;
-							} else if (!casilla.equals(combinacion.getCasilla(j)) && (j == (i - 1))) {
+						if (casilla.equals(combinacion.getCasilla(j))) {
+							repetido = true;
+						} else if (!casilla.equals(combinacion.getCasilla(j)) && (j == (i - 1))) {
 		//	3.2. Si no está repetido añadir a la combinacion
-								combinacion.anadirCasilla(casilla);
-							}
+							combinacion.anadirCasilla(casilla);
 						}
 					}
 				} 		
@@ -86,36 +84,40 @@ public class Usuario extends Jugador {
 		return intento;
 	}
 
-	public Combinacion colocarPinchos(Combinacion combinacion, Combinacion combinacionSecreta) { //¿¿¿¿Lo hace el usuario????
+	public Combinacion colocarPinchos(Combinacion combinacion, Combinacion combinacionSecreta) { 
 		Combinacion resultado = new Combinacion(dificultad);
-		boolean repetir;
-		int i, colocados = 0, noColocados = 0;
+		boolean repetir = false;
+		int i, colocados = 0, noColocados = 0, colocadosReales, noColocadosReales;
+		
+		colocadosReales = combinacion.calcularResultado(combinacionSecreta).contarColocados();
+		noColocadosReales = combinacion.calcularResultado(combinacionSecreta).contarNoColocados();
 		
 		System.out.println("Introduce tu respuesta");
-		do {
+		do {		
 			repetir = false;
 			colocados = Teclado.leerRango(0, dificultad.getCasillas(), Rango.AMBOSINCLUIDOS, "Introduzca el número de fichas "
-					+ "que coinciden color y posición");
-		//Introduce en resultado el número de fichas del mismo color y en la misma posición
-			for (i = 0; i < colocados; i++) {
-				resultado.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-			}
+					+ "que coinciden color y posición");		
 			noColocados = Teclado.leerRango(0, (dificultad.getCasillas() - colocados), Rango.AMBOSINCLUIDOS, "Introduce el número "
-					+ "de fichas que coicida solo el color");
-		//Introduce en resultado el número de fichas del mismo color
-			for (i = colocados; i < (colocados + noColocados) ; i++) {
-				resultado.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
-			}
-		//Introduce en resultado el número de fichas que no coinciden
-			for (i = (colocados + noColocados); i < dificultad.getCasillas(); i++) {
-				resultado.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
-			}
-			//Se comprueba que el resultado que hemos propuesto es el mismo que si se calcula automáticamente
-			if (!resultado.equals((combinacion.calcularResultado(combinacionSecreta)))) {
-				System.out.println("Tu respuesta no es correcta, introdúcela de nuevo");
+					+ "de fichas que coicida solo el color");	
+			
+			if((colocados!=colocadosReales) || (noColocados!=noColocadosReales)) {
+				System.out.println(Color.ROJO + "\nEl resultado no coincide con el verdadero. Introdúzcalo de nuevo\n" + Color.RESET);
 				repetir = true;
-			} 
+			}
 		} while (repetir);
+		
+		//Introduce en resultado el número de fichas del mismo color y en la misma posición
+		for (i = 0; i < colocados; i++) {
+			resultado.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		}
+		//Introduce en resultado el número de fichas del mismo color
+		for (i = colocados; i < (colocados + noColocados) ; i++) {
+			resultado.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		}
+		//Introduce en resultado el número de fichas que no coinciden
+		for (i = (colocados + noColocados); i < dificultad.getCasillas(); i++) {
+			resultado.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		}
 		return resultado;
 	} //final de colocarPinchos
 

@@ -95,6 +95,5 @@ public class Casilla implements Dibujable {
 
 	public String dibujarResultado() {
 		return (color + "  " + Color.RESET);
-	}
-	
+	}	
 }

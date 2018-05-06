@@ -59,15 +59,16 @@ public class Partida {
 				colocados1 = jugada1.getResultado().contarColocados();
 		//	2.2. Acierta la combinación y esta dentro del número de intentos				
 				if(colocados1 == combinacion1.getCombinacion().length && i < dificultad.getIntentos()) {
-					//Dibujar la combinación secreta ?????????????????????
-					tablero2.dibujarCombinacionSecreta(null);
+					//Dibujar la combinación secreta
+					tablero2.dibujarCombinacionSecreta(null, 1);
 					//Mensaje ganador
-					System.out.println(Color.VERDE + "¡Ha ganado Jugador 1 (Usuario)! ¡Ha acertado la combinación secreta!" + Color.RESET);
+					System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 1 (Usuario)! ¡Ha acertado la combinación secreta!" + Color.RESET);
 					salir = true;
 				} else if (colocados1 != combinacion1.getCombinacion().length && i == (dificultad.getIntentos() - 1)) {
 		//	2.3. No acierta y no quedan aciertos, partida acaba					
 					//Dibujar la combinación secreta
-					System.out.println(Color.ROJO + "¡¡¡Ooooh, Jugador 1 (Usuario) ha perdido!!! Ha agotado el número de intentos" + Color.RESET);
+					tablero2.dibujarCombinacionSecreta(null, 1);
+					System.out.println(Color.ROJO + "\n¡¡¡Ooooh, Jugador 1 (Usuario) ha perdido!!! Ha agotado el número de intentos" + Color.RESET);
 					salir = true;
 				}				
 			} //final del for del modo fácil adivinar
@@ -78,7 +79,8 @@ public class Partida {
 			jugador2 = new Maquina(dificultad);
 			/*
 			 * 1. El usuario crea una combinación
-			 * 2. Sistema pregunta jugada
+			 * 2. Máquina crea jugada
+			 * 3. Sistema muestra la jugada de la máquina para que el usuario pueda completar la respuesta
 			 * 	2.1. No acierta y queda aciertos, vuelve a preguntar 2. 
 			 * 	2.2. No acierta y no quedan aciertos, partida acaba
 			 * 	2.3. Acierta la combinación y esta dentro del número de intentos
@@ -90,31 +92,31 @@ public class Partida {
 			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion(), dificultad);
 			System.out.println("El Jugador 1 (Usuario) ha creado la combinación secreta, la máquina intentará adivinarla");
 		//2. Sistema pregunta siguiente jugada
-			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
-				System.out.println("Intento " + (i+1) + ":\n");
-				//La máquina crea la combinación
-				
-						//CREAR INTENTO
-				
-				combinacion2 = ((Maquina)jugador2).crearCombinacion();
+			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
+				System.out.println("Intento " + (i + 1) + ":\n");
+				combinacion2 = ((Maquina)jugador2).crearIntento(tablero1, (i + 1));
 				jugada2 = new Jugada(combinacion2);
+				jugada2.dibujarJugada(dificultad, (i + 1));
+				tablero1.dibujarCombinacionSecreta(null, 1);
 				//La combinación crea un resultado, que es realizado por el usuario y comprobado por el sistema, de la combinación comparada con la secreta
 				jugada2.setResultado(((Usuario)jugador1).colocarPinchos(combinacion2, tablero1.getCombinacionSecreta()));
 				//Creamos la jugada con la combinación y el resultado de la combinación propuesta;
 				tablero1.anadirJugada(jugada2);
+				tablero1.dibujarTableros(null, (i + 1));
 		//	2.1. No acierta y queda aciertos, vuelve a preguntar								
 				//Dibujar la combinación de la jugada y los pinchos
+				tablero1.dibujarCombinacionSecreta(null, 1);
 				//Contamos los pinchos rojos para saber si el usuario ha ganado
 				colocados2 = jugada2.getResultado().contarColocados();
 		//	2.2. Acierta la combinación y esta dentro del número de intentos				
 				if(colocados2 == combinacion2.getCombinacion().length && i < dificultad.getIntentos()) {
 					//Dibujar la combinación secreta
-					System.out.println(Color.VERDE + "¡Ha ganado Jugador 2 (Máquina)! ¡Ha acertado la combinación secreta!" + Color.RESET);
+					System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 2 (Máquina)! ¡Ha acertado la combinación secreta!" + Color.RESET);
 					salir = true;
 				} else if (colocados2 != combinacion2.getCombinacion().length && i == (dificultad.getIntentos() - 1)) {
 		//	2.3. No acierta y no quedan aciertos, partida acaba					
 					//Dibujar la combinación secreta
-					System.out.println(Color.ROJO + "¡¡¡Ooooh, Jugador 2 (Máquina) ha perdido!!! Ha agotado el número de intentos" + Color.RESET);
+					System.out.println(Color.ROJO + "\n¡¡¡Ooooh, Jugador 2 (Máquina) ha perdido!!! Ha agotado el número de intentos" + Color.RESET);
 					salir = true;
 				}				
 			} //final del for del modo fácil comprobar
@@ -126,36 +128,43 @@ public class Partida {
 			/*
 			 * 1. El usuario y la máquina crean su combinación secreta cada uno
 			 * 2. Usuario y máquina crean combinación para la jugada
-			 * 3. Se cuentan los colores colocados en su sitio y los no colocados en su lugar
-			 * 	3.1. Uno de los dos acierta la combinación secreta del otro, la partida acaba
-			 * 	3.2. No acierta ninguno y no quedan intentos, se comprueban los pinchos rojos y blancos para comprobar el ganador0
-			 * 		3.2.1. Jugador 1 tiene más pinchos rojos que Jugador 2, Jugador 1 gana la partida
-			 * 		3.2.2. Jugador 2 tiene más pinchos rojos que Jugador 1, Jugador 2 gana la partida
-			 * 		3.2.3. Si empatan a pinchos rojos, Jugador 1 tiene más pinchos blancos que Jugador 2, Jugador 1 gana la partida
-			 * 		3.2.4. Si empatan a pinchos rojos, Jugador 2 tiene más pinchos blancos que Jugador 1, Jugador 2 gana la partida
-			 * 		3.2.5. Si empatan a pinchos rojosy blancos, empatan la partida
-			 * 	3.3. No acierta ninguno y quedan intentos, vuelve a preguntar 2.
+			 * 3. El sistema muestra la jugada de la máquina al usuario para que coloque los pinchos
+			 * 4. Se cuentan los colores colocados en su sitio y los no colocados en su lugar
+			 * 	4.1. Uno de los dos acierta la combinación secreta del otro, la partida acaba
+			 * 	4.2. No acierta ninguno y no quedan intentos, se comprueban los pinchos rojos y blancos para comprobar el ganador0
+			 * 		4.2.1. Jugador 1 tiene más pinchos rojos que Jugador 2, Jugador 1 gana la partida
+			 * 		4.2.2. Jugador 2 tiene más pinchos rojos que Jugador 1, Jugador 2 gana la partida
+			 * 		4.2.3. Si empatan a pinchos rojos, Jugador 1 tiene más pinchos blancos que Jugador 2, Jugador 1 gana la partida
+			 * 		4.2.4. Si empatan a pinchos rojos, Jugador 2 tiene más pinchos blancos que Jugador 1, Jugador 2 gana la partida
+			 * 		4.2.5. Si empatan a pinchos rojosy blancos, empatan la partida
+			 * 	4.3. No acierta ninguno y quedan intentos, vuelve a preguntar 2.
 			 */
 			
-			System.out.println("¡Ha elegido el modo medio!\n\nDebe crear una combinación secreta que la máquina intentará adivinar y viceversa");
+			System.out.println("¡Ha elegido el modo medio!\n\nDebe crear una combinación secreta que la máquina intentará adivinar y viceversa\n");
 			
 		//1. El usuario y la máquina crean su combinación secreta cada uno
 			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion(), dificultad);
-			System.out.println("Jugador 1 ha creado su combinación secreta");
+			System.out.println("\nJugador 1 ha creado su combinación secreta");
 			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);			
-			System.out.println("Jugador 2 ha creado su combinación secreta");
-			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
+			System.out.println("Jugador 2 ha creado su combinación secreta\n");
+			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
 				System.out.println("Intento " + (i+1) + ":\n");
 		//2. Usuario y máquina crean combinación para la jugada
-				combinacion1 = ((Usuario)jugador1).crearCombinacion();			
+				combinacion1 = ((Usuario)jugador1).crearIntento();			
 				jugada1 = new Jugada(combinacion1);
 				jugada1.calcularResultado(tablero2.getCombinacionSecreta());
-				tablero2.anadirJugada(jugada1);;
+				tablero2.anadirJugada(jugada1);
 				
-				combinacion2 = ((Maquina)jugador2).crearCombinacion();
+				combinacion2 = ((Maquina)jugador2).crearIntento(tablero1, (i + 1));
 				jugada2 = new Jugada(combinacion2);
+				
+				jugada2.dibujarJugada(dificultad, (i + 1));
+				tablero1.dibujarCombinacionSecreta(null, 1);
+				
 				jugada2.setResultado(((Usuario)jugador1).colocarPinchos(combinacion2, tablero1.getCombinacionSecreta()));
-				tablero1.anadirJugada(jugada2);;
+				tablero1.anadirJugada(jugada2);
+				
+				tablero1.dibujarTableros(tablero2, (i + 1));
 		//3. Se cuentan los colores colocados en su sitio y los no colocados en su lugar
 				colocados1 = jugada1.getResultado().contarColocados();
 				colocados2 = jugada2.getResultado().contarColocados();
@@ -163,52 +172,52 @@ public class Partida {
 				noColocados2 = jugada2.getResultado().contarNoColocados();
 		//	3.1. Uno de los dos acierta la combinación secreta del otro, la partida acaba	
 				if((colocados1 == dificultad.getCasillas() || colocados1 == dificultad.getCasillas()) && i < dificultad.getIntentos()) {
+					tablero1.dibujarCombinacionSecreta(tablero2, 2);
 					if(colocados1 == dificultad.getCasillas()) {
 						//Dibujar tablero2 y combinación secreta
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 1 (Usuario)! ¡Ha acertado la combinación secreta!" + Color.RESET);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 1 (Usuario)! ¡Ha acertado la combinación secreta!" + Color.RESET);
 						salir = true;
 					} else {
 						//Dibujar tablero1 y combinación secreta
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 2 (Máquina)! ¡Ha acertado la combinación secreta!" + Color.RESET);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 2 (Máquina)! ¡Ha acertado la combinación secreta!" + Color.RESET);
 						salir = true;
 					}
 		//	3.2. No acierta ninguno y no quedan intentos, se comprueban los pinchos rojos y blancos para comprobar el ganador0
 				} else if ((colocados1 != dificultad.getCasillas() || colocados1 == dificultad.getCasillas()) && i == (dificultad.getIntentos() - 1)) {
+					tablero1.dibujarCombinacionSecreta(tablero2, 2);
 		//		3.2.1. Jugador 1 tiene más pinchos rojos que Jugador 2, Jugador 1 gana la partida
 					if (colocados1 > colocados2) { //Gana J1
 						//Dibujar tablero1 y tablero2
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 1 (Usuario)! ¡Tiene " + colocados1 + " ficha/s de su color "
-								+ "colocadas en su sitio y Jugador 2 (Máquina) tiene " + "!" + colocados2 + Color.RESET);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 1 (Usuario)! ¡Tiene " + colocados1 + " ficha/s de su color "
+								+ "colocadas en su sitio \ny Jugador 2 (Máquina) tiene " + "!" + colocados2 + Color.RESET);
 						salir = true;
 		//		3.2.2. Jugador 2 tiene más pinchos rojos que Jugador 1, Jugador 2 gana la partida
 					} else if (colocados1 < colocados2) { //Gana J2
 						//Dibujar tablero1 y tablero2
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 2 (Máquina)! ¡Tiene " + colocados1 + " ficha/s de su color "
-								+ "colocadas en su sitio y Jugador 1 (Usuario) tiene " + colocados2 + "!" + Color.RESET);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 2 (Máquina)! ¡Tiene " + colocados1 + " ficha/s de su color "
+								+ "colocadas en su sitio \ny Jugador 1 (Usuario) tiene " + colocados2 + "!" + Color.RESET);
 						salir = true;	
 		//		3.2.3. Si empatan a pinchos rojos, Jugador 1 tiene más pinchos blancos que Jugador 2, Jugador 1 gana la partida
 					} else if (colocados1 == colocados2 && noColocados1 > noColocados2) { //Gana J1
 						//Dibujar tablero1 y tablero2
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 1 (Usuario)! ¡Ambos tienen "+ colocados1 + "ficha/s de su color "
-								+ "colocadas en su sitio y Jugador 1 ha adivinado " + noColocados1 + " colores que no están en su sitio y Jugador 2"
-										+ " (Máquina) tiene " + noColocados2 + " colores no colocados en su sitio"+ Color.RESET);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 1 (Usuario)! ¡Ambos tienen "+ colocados1 + "ficha/s de su color "
+								+ "colocadas en su sitio \ny Jugador 1 ha adivinado " + noColocados1 + " colores que no están en su sitio y Jugador 2"
+										+ " (Máquina) tiene " + noColocados2 + "\ncolores no colocados en su sitio"+ Color.RESET);
 						salir = true;	
 		//		3.2.4. Si empatan a pinchos rojos, Jugador 2 tiene más pinchos blancos que Jugador 1, Jugador 2 gana la partida
 					} else if(colocados1 == colocados2 && noColocados1 < noColocados2) { //Gana J2
 						//Dibujar tablero1 y tablero2
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 2 (Máquina)! ¡Ambos tienen "+ colocados1 + "ficha/s de su color "
-								+ "colocadas en su sitio y, además, Jugador 2 ha adivinado " + noColocados1 + " colores que no están en su sitio y Jugador 1"
-										+ "(Usuario) tiene " + noColocados2 + " colores no colocados en su sitio!"+ Color.RESET);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 2 (Máquina)! ¡Ambos tienen "+ colocados1 + "ficha/s de su color "
+								+ "colocadas en su sitio \ny, además, Jugador 2 ha adivinado " + noColocados1 + " colores que no están en su sitio y Jugador 1"
+										+ "(Usuario) tiene " + noColocados2 + "\ncolores no colocados en su sitio!"+ Color.RESET);
 						salir = true;	
 		//		3.2.5. Si empatan a pinchos rojosy blancos, empatan la partida
 					} else if (colocados1 == colocados2 && noColocados1 == noColocados2) { //Empatan
 						//Dibujar tablero1 y tablero2
-						System.out.println(Color.VERDE + "¡Han empatado! Ambos han adivinado los mismos colores y han colocados los mismos" + Color.RESET);
+						System.out.println(Color.VERDE + "\n¡Han empatado! Ambos han adivinado los mismos colores y han colocados los mismos" + Color.RESET);
 						salir = true;	
 					} 				
 		//	3.3. No acierta ninguno y quedan intentos, vuelve a preguntar 2.
-				} else {
-					//Dibujar tablero1 y tablero2
 				}
 			} //final del dor de intentos del modo medio
 			break;
@@ -227,10 +236,7 @@ public class Partida {
 			tablero1 = new Tablero(((Maquina)jugador1).crearCombinacion(), dificultad);
 			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);
 			
-			
-			tablero1.dibujarCombinacionSecreta(tablero2); //Prueba
-			
-			for(i = 0 ; i < dificultad.getIntentos() || salir ; i++) {
+			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
 		//2. Las máquinas crean combinación para la jugada
 				combinacion1 = ((Maquina)jugador1).crearIntento(tablero2, (i + 1));
 				jugada1 = new Jugada(combinacion1);
@@ -251,18 +257,19 @@ public class Partida {
 				noColocados1 = jugada1.getResultado().contarNoColocados();
 				noColocados2 = jugada2.getResultado().contarNoColocados();
 		//	3.1. Uno de los dos acierta la combinación secreta del otro, la partida acaba
-				if((colocados1 == dificultad.getCasillas() || colocados1 == dificultad.getCasillas()) && i < dificultad.getIntentos()) {
+				if(colocados1 == dificultad.getCasillas() || colocados2 == dificultad.getCasillas()) {
 					if(colocados1 == dificultad.getCasillas()) {
-						//Dibujar tablero1 y tablero2
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 1! ¡Ha acertado la combinación secreta!" + Color.RESET);
+						tablero1.dibujarCombinacionSecreta(tablero2, 2);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 1! ¡Ha acertado la combinación secreta!" + Color.RESET);
 						salir = true;
 					} else {
-						//Dibujar tablero1 y tablero2
-						System.out.println(Color.VERDE + "¡Ha ganado Jugador 2! ¡Ha acertado la combinación secreta!" + Color.RESET);
+						tablero1.dibujarCombinacionSecreta(tablero2, 2);
+						System.out.println(Color.VERDE + "\n¡Ha ganado Jugador 2! ¡Ha acertado la combinación secreta!" + Color.RESET);
 						salir = true;
 					}
 				}
 			} //final del for de intentos del modo difícil
+			
 			break;
 		}
 		

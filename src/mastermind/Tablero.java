@@ -176,7 +176,7 @@ public class Tablero implements TableroDibujable {
 			
 	}
 
-	public void dibujarCombinacionSecreta(Tablero tablero2) {		
+	public void dibujarCombinacionSecreta(Tablero tablero2, int indicador) {		
 		final int UNESPACIO = 1, DOSESPACIOS = 2, TRESESPACIOS = 3, SEISESPACIOS = 6, SIETEESPACIOS = 7, 
 				OCUPACOMB = (6 * dificultad.getCasillas()), OCUPARESULT = (3 * dificultad.getCasillas());
 		final String ESPACIO = " ";
@@ -200,12 +200,28 @@ public class Tablero implements TableroDibujable {
 				espaciosVacios = espaciosVacios + ESPACIO;
 			}
 			
-			System.out.println(Color.FONDO_NEGRO + espaciosVacios + Color.RESET + "\n"
-							+ Color.FONDO_ROJO + espaciosVacios + Color.RESET + "\n"
-							+ dibujarSegundaFilaInicio() + jugada.dibujarPrimeraFilaJugada(dificultad) 
+			System.out.println(Color.FONDO_NEGRO + espaciosVacios + Color.RESET 
+							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET 
+							+ "\n" + dibujarSegundaFilaInicio() + jugada.dibujarPrimeraFilaJugada(dificultad) 
 							+ "\n" + dibujarSegundaFilaInicio() + jugada.dibujarPrimeraFilaJugada(dificultad)
 							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
-		} else {
+		} else if(dificultad == Dificultad.MEDIO && indicador == 1) {	
+			largo = SEISESPACIOS + OCUPACOMB + TRESESPACIOS + OCUPARESULT + DOSESPACIOS;
+			String tresEspacios = "   ", dosEspacios = "  ";
+			
+			for(i = 0 ; i < largo ; i++) {
+				espaciosVacios = espaciosVacios + ESPACIO;
+			}
+			
+			System.out.println(Color.FONDO_NEGRO + espaciosVacios + Color.RESET 
+							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET 
+							+ "\n" + Color.FONDO_ROJO  + tresEspacios + dosEspacios + Color.RESET + dibujarSegundaFilaInicio() 
+							+ jugada.dibujarPrimeraFilaJugada(dificultad) 
+							+ "\n" + Color.FONDO_ROJO  + tresEspacios + dosEspacios + dibujarSegundaFilaInicio() 
+							+ jugada.dibujarPrimeraFilaJugada(dificultad)
+							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
+			
+		} else if (dificultad == Dificultad.DIFICIL || (dificultad == Dificultad.MEDIO && indicador == 2)){
 			jugada2 = new Jugada(tablero2.getCombinacionSecreta());
 			largo = UNESPACIO + (2 * OCUPACOMB) + (2 * TRESESPACIOS) + (2 * OCUPARESULT) + (2 * DOSESPACIOS) + SIETEESPACIOS;;
 			
@@ -221,7 +237,6 @@ public class Tablero implements TableroDibujable {
 							+ jugada.dibujarPrimeraFilaJugada(dificultad) 
 							+ "\n" + Color.FONDO_ROJO + espaciosVacios + Color.RESET);
 		}
-	} //final dibujarCombinacionSecreta
-	
+	} //final dibujarCombinacionSecreta	
 
 }
