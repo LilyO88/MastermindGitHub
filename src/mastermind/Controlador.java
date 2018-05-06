@@ -20,7 +20,7 @@ public class Controlador {
 		
 		//1. Presentación del juego
 		System.out.println("    " + FONDO_ROJOCLARO + "  " + RESET + "   " + FONDO_VERDECLARO
-				+ "  " + RESET + "   " + "Mastermind" + "   " + FONDO_AMARILLOCLARO + "  " + RESET
+				+ "  " + RESET + "   " + "MasterMind" + "   " + FONDO_AMARILLOCLARO + "  " + RESET
 				+ "   " + FONDO_AZULCLARO + "  " + RESET + "\n");
 	
 		do {
@@ -68,16 +68,13 @@ public class Controlador {
 			
 		//	2.3. Salir del juego
 			case 3: 
-				salir = true;
+				volverJugar = Teclado.leerBooleanSN("\n¿Quiere jugar una nueva partida? Sí o No");
+				if(!volverJugar) {
+					System.out.println("¡Hasta pronto!");
+					salir = true;
+				}
 				break;
-		} //switch menú1		
-			
-			volverJugar = Teclado.leerBooleanSN("\n¿Quiere jugar una nueva partida? Sí o No");
-			if(!volverJugar) {
-				System.out.println("¡Hasta pronto!");
-				salir = true;
-			}		
-			
+			} //switch menú1		
 		} while (!salir);
 			
 	} //final menu()

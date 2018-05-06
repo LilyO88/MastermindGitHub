@@ -3,9 +3,17 @@ package mastermind;
 import java.util.LinkedList;
 
 import utilidades.Color;
-
+/**
+ * 
+ * @author Lidia
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Combinacion implements Dibujable {
-	
+	/**
+	 * Almacena un conjunto de determinado tamaño de casillas que juntas forman una combinación
+	 */
 	private Casilla combinacion[];
 	private Dificultad dificultad;
 	private int posicion = 0;

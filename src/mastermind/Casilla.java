@@ -1,19 +1,37 @@
 package mastermind;
 
 import utilidades.Color;
-
+/**
+ * 
+ * @author Lidia
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Casilla implements Dibujable {
-	
+	/**
+	 * Cadena que contiene un color
+	 */	
 	private String color;
-	
+	/**
+	 * Construye un nuevo objeto Casilla que almacen aun color específico
+	 * @param color Cadena a través de la cual se forma la Casilla 
+	 */	
 	Casilla(String color){
 		this.color = color;
 	}
-	
+	/**
+	 * Devuelve el color propio de la casilla
+	 * @return La cadena que está definida por un color
+	 */
 	public String getColor() {
 		return color;
 	}
-
+	/**
+	 * Comparar un objeto de este tipo que llama la función con otro del mismo que pasamos por parámetro
+	 * @param obj	Objeto sobre el que queremos comparar
+	 * @return		El booleano resultante de comparar los os objetos
+	 */
 	public boolean equals(Object obj) {
 		boolean resultado = false;
 		
@@ -21,7 +39,12 @@ public class Casilla implements Dibujable {
 			resultado = true;		
 		return resultado;
 	}
-
+	/**
+	 * Asigna un color a una casilla según la dificultad y la elección de color que hayamos tomado
+	 * @param dificultad Enum tipo Dificultad que nos determina una forma de actuar u otra dentro del método
+	 * @param aleatorioColor Elección que hemos tomado para conseguir una casilla de ese color
+	 * @return La casilla de color seleccionada por nosotros con el parámetro
+	 */
 	public Casilla seleccionarColorCasilla(Dificultad dificultad, int aleatorioColor) {
 		Casilla casilla = null;
 		
@@ -89,10 +112,18 @@ public class Casilla implements Dibujable {
 		return casilla;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see mastermind.Dibujable#dibujar()
+	 */
 	public String dibujar() {
 		return (color + "    " + Color.RESET);
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see mastermind.Dibujable#dibujarResultado()
+	 */
 	public String dibujarResultado() {
 		return (color + "  " + Color.RESET);
 	}	
