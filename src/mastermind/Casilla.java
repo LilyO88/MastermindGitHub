@@ -30,7 +30,7 @@ public class Casilla implements Dibujable {
 	/**
 	 * Comparar un objeto de este tipo que llama la función con otro del mismo que pasamos por parámetro
 	 * @param obj	Objeto sobre el que queremos comparar
-	 * @return		El booleano resultante de comparar los os objetos
+	 * @return		El booleano resultante de comparar los dos objetos
 	 */
 	public boolean equals(Object obj) {
 		boolean resultado = false;
@@ -120,7 +120,7 @@ public class Casilla implements Dibujable {
 		return (color + "    " + Color.RESET);
 	}
 
-	/**
+	/*
 	 * (non-Javadoc)
 	 * @see mastermind.Dibujable#dibujarResultado()
 	 */

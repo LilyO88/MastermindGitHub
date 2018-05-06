@@ -11,7 +11,7 @@ public class Usuario extends Jugador {
 	}
 
 	@Override
-	public Combinacion crearCombinacion() {
+	public Combinacion crearCombinacionSecreta() {
 		Combinacion combinacion = new Combinacion(dificultad);
 		Casilla casilla = new Casilla(Color.FONDO_NEGRO);
 		boolean repetido;

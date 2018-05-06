@@ -24,7 +24,7 @@ public class Maquina extends Jugador {
 	}
 
 	@Override
-	public Combinacion crearCombinacion() {
+	public Combinacion crearCombinacionSecreta() {
 		Combinacion combinacion = new Combinacion(dificultad);
 		Casilla casilla = new Casilla(Color.FONDO_NEGRO);
 		Random rnd = new Random();
@@ -89,7 +89,7 @@ public class Maquina extends Jugador {
 			//1. Combinaciones aleatorias que no se repitan
 				do {
 					repetida = false;
-					intentoCombinacion = crearCombinacion();
+					intentoCombinacion = crearCombinacionSecreta();
 					if (combinacionesProbadas.containsKey(intentoCombinacion)) {
 						repetida = true;
 					}

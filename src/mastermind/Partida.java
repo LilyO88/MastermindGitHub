@@ -1,9 +1,13 @@
 package mastermind;
 
 import utilidades.Color;
-
-//import utilidades.Color;
-
+/**
+ * 
+ * @author Lidia
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Partida {
 
 	private Dificultad dificultad;
@@ -39,7 +43,7 @@ public class Partida {
 			System.out.println("¡Ha elegido el modo fácil!\n\nDebe adivinar la combinación secreta");
 			
 		//1. La máquina crea una combinación secreta			
-			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);
+			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacionSecreta(), dificultad);
 			System.out.println("El Jugador 2 (Máquina) ha creado la combinación secreta, intente adivinarla");
 			System.out.println(tablero2.getCombinacionSecreta().dibujar());
 		//2. Sistema pregunta siguiente jugada
@@ -89,7 +93,7 @@ public class Partida {
 			System.out.println("¡Ha elegido el modo fácil!\n\nDebe crear una combinación secreta que la máquina intentará adivinar");
 			
 		//1. El usuario crea una combinación			
-			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion(), dificultad);
+			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacionSecreta(), dificultad);
 			System.out.println("El Jugador 1 (Usuario) ha creado la combinación secreta, la máquina intentará adivinarla");
 		//2. Sistema pregunta siguiente jugada
 			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
@@ -143,9 +147,9 @@ public class Partida {
 			System.out.println("¡Ha elegido el modo medio!\n\nDebe crear una combinación secreta que la máquina intentará adivinar y viceversa\n");
 			
 		//1. El usuario y la máquina crean su combinación secreta cada uno
-			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacion(), dificultad);
+			tablero1 = new Tablero(((Usuario)jugador1).crearCombinacionSecreta(), dificultad);
 			System.out.println("\nJugador 1 ha creado su combinación secreta");
-			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);			
+			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacionSecreta(), dificultad);			
 			System.out.println("Jugador 2 ha creado su combinación secreta\n");
 			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
 				System.out.println("Intento " + (i+1) + ":\n");
@@ -233,8 +237,8 @@ public class Partida {
 			System.out.println("¡Ha elegido el modo difícil!\n\nUna máquina creará una combinación secreta que la otra máquina intentará adivinar y viceversa\n");
 			
 		//1. Las máquinas crean su combinación secreta cada una
-			tablero1 = new Tablero(((Maquina)jugador1).crearCombinacion(), dificultad);
-			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacion(), dificultad);
+			tablero1 = new Tablero(((Maquina)jugador1).crearCombinacionSecreta(), dificultad);
+			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacionSecreta(), dificultad);
 			
 			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
 		//2. Las máquinas crean combinación para la jugada

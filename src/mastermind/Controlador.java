@@ -4,13 +4,25 @@ import static utilidades.Color.*;
 
 import utilidades.Teclado;
 import utilidades.Teclado.*;
-
+/**
+ * 
+ * @author Lidia
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Controlador {
-	
+	/**
+	 * Construye un objeto que contiene un menú con el que controlar la partida
+	 */
 	Controlador() {
 		Menu();
 	}
 	
+	/**
+	 * Modela una estructura que nos facilita controlar los menús internos
+	 * @see mastermind.Partida#jugar()
+	 */
 	public void Menu() {	
 		
 		boolean salir = false, volverJugar;
@@ -61,9 +73,23 @@ public class Controlador {
 					partida.jugar();
 					break;
 				} //switch menú2
-					break;
+
+				volverJugar = Teclado.leerBooleanSN("\n¿Quiere jugar una nueva partida? Sí o No");
+				if(!volverJugar) {
+					System.out.println("¡Hasta pronto!");
+					salir = true;
+				}
+				break;
 		//	2.2. Ver normas		
-			case 2: 				
+			case 2: 	
+				
+				//INTRODUCIR NORMAS
+
+				volverJugar = Teclado.leerBooleanSN("\n¿Quiere jugar una nueva partida? Sí o No");
+				if(!volverJugar) {
+					System.out.println("¡Hasta pronto!");
+					salir = true;
+				}
 				break;
 			
 		//	2.3. Salir del juego
