@@ -461,4 +461,282 @@ public class Prueba {
 //		}
 //		
 //	} //final else de elegir posición
+	
+	
+	
+//	
+//	/*----------------------------COLORES ENCONTRADOS, BUSCAMOS LA POSICIÓN DE CADA UNO--------------------------*/
+//	
+//} else {// Busca posiciones
+//	
+///*----------------------------PRIMER INTENTO RELLENAMOS CON EL PRIMER COLOR Y UNA POSICIÓN AL AZAR--------------------------*/
+//	
+//	if (intentosColocar == 0) {
+//		casilla = coloresEncontrados.get(contadorColoresEncontrados);
+//		casillaDescartado = coloresDescartados.get(aleatorioDescartado);
+//		aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
+//		for (i = 0; i < dificultad.getCasillas(); i++) {
+//			if (i != aleatorioPosicion) {
+//				intentoCombinacion.anadirCasilla(casillaDescartado);
+//			} else {
+//				intentoCombinacion.anadirCasilla(casilla);
+//			}
+//		}
+//		intentosColocar++; //SUMAMOS INTENTO DE COLOCAR
+//
+///*----------------------------INTENTAMOS COLOCAR COMPROBANDO LA JUGADA ANTERIOR--------------------------*/
+//		
+////					1.2.2.2. Si no es la primera vez que intentamos colocar una casilla, creamos la combinación teniendo en cuenta el resultado de la jugada anterior
+//	} else {
+////						1.2.2.2.1. Comprobar la combinación anterior para crear la siguiente
+//		numeroPinchos = tablero.getTablero().getLast().getResultado().contarColocados();
+//		if (numeroPinchos != 0) { // Si hay un pincho rojo, hemos encontrado la posición del color
+//			for (i = 0; i < tablero.getTablero().getLast().getCombinacion().getCombinacion().length ; i++) { // Buscamos la posición que corresponde al color
+//				casilla = casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados);
+//				if (tablero.getTablero().getLast().getCombinacion().getCasilla(i).equals(casilla)) {
+//					// Introducimos en la lista el color y la posición que ocupa
+//					listaPosicionColorDefinitivo.put(i, casilla);
+//					listaPosicionColorDescartado.put(i, casilla);
+//				}
+//			}
+//			aleatorioDescartado = rnd.nextInt(coloresDescartados.size()); // Cambiamos el color de prueba por estética
+//			contadorColoresEncontrados++; // Cambiamos al siguiente color para buscar su posición
+//		} else { // Si no hay un pincho rojo
+//			for (i = 0; i < dificultad.getCasillas(); i++) { // Buscamos la posición que corresponde al color
+//				casilla = casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados);
+//				if (tablero.getTablero().getLast().getCombinacion().getCasilla(i).equals(casilla)) {
+//					// Introducimos el color y la posición en la lista para saber que no se encuentra en esta posición
+//					listaPosicionColorDescartado.put(i, casilla);
+//				}
+//			}
+//		}
+//
+//		if (listaPosicionColorDefinitivo.size() < dificultad.getCasillas()
+//				|| listaPosicionColorDefinitivo.isEmpty()) {
+////						1.2.2.2.2. Crear combinación seleccionando una posición para uno de los colores encontrados, y rellenar el resto de posiciones 
+////						con un color descartado
+//			casilla = coloresEncontrados.get(contadorColoresEncontrados);
+//			casillaDescartado = coloresDescartados.get(aleatorioDescartado);
+//
+//			do {
+//				repetirAleatorio = false;
+//				aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
+//				if ((listaPosicionColorDefinitivo.containsKey(aleatorioPosicion) && listaPosicionColorDefinitivo.get(aleatorioPosicion) != null)
+//					|| (listaPosicionColorDescartado.containsKey(aleatorioPosicion) && listaPosicionColorDescartado.get(aleatorioPosicion).equals(casilla))) {
+//					repetirAleatorio = true;
+//				}
+//			} while (repetirAleatorio);
+//
+//			for (i = 0; i < dificultad.getCasillas(); i++) {
+//				if (i != aleatorioPosicion) {
+//					intentoCombinacion.anadirCasilla(casillaDescartado);
+//				} else {
+//					intentoCombinacion.anadirCasilla(casilla);
+//				}
+//			}
+//		} else {
+//			for (i = 0; i < listaPosicionColorDefinitivo.size(); i++) {
+//				intentoCombinacion.anadirCasillaPosicion(listaPosicionColorDefinitivo.get(i), i);
+//			}
+//		}
+//		intentosColocar++;
+//	} // fin no primer intento de buscar posición
+//
+//}
+//} while (repetida);
+	
+	
+	//CREARINTENTO 2
+	
+	/*
+	 * 1.2.1. Si colores contiene dentro menor cantidad de colores que larga es la combinación, buscamos los colores
+	 * 	1.2.1.1. Primer intento, crear una combinación de solo 1 color	
+	 * 		1.2.1.1.1. Rellenar el intento con ese color
+	 * 	1.2.1.2. Si no es el primer intento, comprobar la combinación anterior creada para crear otra según el resultado
+	 * 		1.2.1.2.1. Comprobar el resultado de la jugada anterior
+	 * 		1.2.1.2.2. Elegir un color que no haya sido usado, que no esté ni en colores ni en descartados
+	 * 1.2.2. Buscar las posiciones de los colores que hemos encontrado
+	 * 	1.2.2.1. Primer intento de colocar
+	 * 		1.2.2.1.1. Coger casilla de coloresEncontrados para asignarle una primera posición
+	 * 		1.2.2.1.2. Coger casilla de coloresDescartaos para rellenar el resto de posiciones
+	 * 		1.2.2.1.3. Coger una posición al azar para probar el color
+	 * 		1.2.2.1.4. Crear una combinación con la posición, casilla y casilasDescartadas elegidas
+	 * 	1.2.2.2. Siguientes intentos de colocar	
+	 * 		1.2.2.2.1. Comprobar la jugada anterior
+	 * 			1.2.2.2.1.1. Si el número de colocados es mayor a 0, buscamos la posición dentro del anterior intento del color que hemos probado
+	 * 				1.2.2.2.1.1.1. Introducimos la posición y el color en la lista de posiciones y colores definitiva
+	 * 				1.2.2.2.1.1.2. Introducimos la posición y el color en la lista de posiciones y colores descartados
+	 * 				1.2.2.2.1.1.3. Pasamos al siguiente color de la lista de coloresEncontrados
+	 * 				1.2.2.2.1.1.4. Cogemos otro color de la lista de coloresDescartados para rellenar el intento
+	 * 			1.2.2.2.1.2. Si el número de colocados es igual a 0, buscamos la posición dentro del anterior intento del color que hemos probado
+	 * 				1.2.2.2.1.2.1. Introducimos la posición y el color en la lista de posiciones y colores descartados
+	 * 		1.2.2.2.2. Si la lista de posiciones y colores definitiva no contiene al menos tantas casillas como tiene una combinación, seguimos
+	 * 				probando posiciones para las casillas sin colocar
+	 * 			1.2.2.2.2.1. Elegir una nueva posición para probar
+	 * 				1.2.2.2.2.1.1. Comprobar que la posición asociada al color no se encuentre en la lista de definitivos ni en la de descartados
+	 * 		1.2.2.2.3. Si la lista de posiciones y colores definitiva contiene al menos tantas casillas como tiene una combinación,
+	 * 				hemos descubierto la combinación ganadora, por lo que convertimos la lista en una combinación para enviarla a la partida
+	 */
+	
+	
+//	/*----------------------------BUSCAR COLORES--------------------------*/
+//
+////		1.2.1. Si colores contiene dentro menor cantidad de colores que larga es la combinación, buscamos los coloreS
+////			1.2.1.1. Primer intento, crear una combinación de solo 1 color
+//if (intento == 1) {
+//aleatorioColor = rnd.nextInt(dificultad.getColores());
+//casilla = casilla.seleccionarColorCasilla(dificultad, aleatorioColor);
+////				1.2.1.1.1. Rellenar el intento con ese color
+//for (i = 0; i < dificultad.getCasillas(); i++) {
+//intentoCombinacion.anadirCasilla(casilla);
+//}
+//
+////				1.2.1.2. Si no es el primer intento, comprobar la combinación anterior creada para crear otra según el resultado
+//} else { // fin primer intento
+//
+////					1.2.1.2.1. Comprobar el resultado de la jugada anterior
+//
+///*---------------------------COMPROBAR RESULTADO DE LA JUGADA ANTERIOR PARA BUSCAR COLORES-------------------------*/
+//
+//numeroPinchos = tablero.getTablero().getLast().getResultado().contarColocados();
+//if (numeroPinchos != 0) { // Si hay algún pincho, el color está en la combinación secreta y lo guardamos
+//for (j = 0; j < numeroPinchos; j++) {
+//coloresEncontrados.put(encontrados, tablero.getTablero().getLast().getCombinacion().getCasilla(0)); // introducir color en la lista de coloresEncontrados
+//encontrados++;
+//}
+//} else { // Si no hay ningún pincho, el color no está en la combinación secreta y lo descartamos
+//coloresDescartados.put(descartados, tablero.getTablero().getLast().getCombinacion().getCasilla(0)); // introducir color en la lista de coloresDescartados
+//descartados++;
+//}
+//
+///*----------------------------SI INTENTOS ES MENOR QUE 10 Y AÚN NO HEMOS ENCONTRADO TODOS LOS COLORES--------------------------*/
+//
+//if (encontrados < dificultad.getCasillas()) { // Busca colores
+////					1.2.1.2.2. Elegir un color que no haya sido usado, que no esté ni en colores ni en descartados
+//do {
+//aleatorioColor = rnd.nextInt(dificultad.getColores());
+//casilla = casilla.seleccionarColorCasilla(dificultad, aleatorioColor);
+//} while (coloresEncontrados.containsValue(casilla) || coloresDescartados.containsValue(casilla));
+////					1.2.1.2.3. Rellenar el intento con ese color
+//for (i = 0; i < dificultad.getCasillas(); i++) {
+//intentoCombinacion.anadirCasilla(casilla);
+//}
+//
+///*---------------------------COMPRUEBA SI LA JUGADA ESTÁ REPETIDA-------------------------*/
+//
+//jugadaIntento.calcularResultado(tablero.getCombinacionSecreta());
+//if (tablero.getTablero().contains(jugadaIntento)) {
+//repetida = true;
+//}
+//
+///*----------------------------SI INTENTOS ES MENOR QUE 10 Y HEMOS ENCONTRADO TODOS LOS COLORES--------------------------*/
+///*----------------------------SE RELLENA DESCARTADOS CON LOS COLORES SOBRANTES--------------------------*/
+//
+//} else if (encontrados == dificultad.getCasillas()) {
+//for (i = 0; i < dificultad.getColores(); i++) {
+//casilla = casilla.seleccionarColorCasilla(dificultad, i);
+//if (!coloresEncontrados.containsValue(casilla) && !coloresDescartados.containsValue(casilla)) {
+//	coloresDescartados.put(descartados, casilla);
+//	descartados++;
+//}
+//}
+//
+//} else {
+//
+///*----------------------------BUSCAR LAS POSICIONES DE LOS COLORES--------------------------*/
+//
+////		1.2.2. Buscar las posiciones de los colores que hemos encontrado
+////			1.2.2.1. Primer intento de colocar
+//
+//if(intentosColocar == 0) {
+////				1.2.2.1.1. Coger casilla de coloresEncontrados para asignarle una primera posición
+//casilla = casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados);
+////				1.2.2.1.2. Coger casilla de coloresDescartaos para rellenar el resto de posiciones
+//aleatorioDescartado = rnd.nextInt(dificultad.getColores());
+//casillaDescartado = casillaDescartado.seleccionarColorCasilla(dificultad, aleatorioDescartado);
+////				1.2.2.1.3. Coger una posición al azar para probar el color
+//aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
+////				1.2.2.1.4. Crear una combinación con la posición, casilla y casilasDescartadas elegidas
+//for(i = 0 ; i < dificultad.getCasillas() ; i++) {
+//	if(i == aleatorioPosicion) {
+//		intentoCombinacion.anadirCasilla(casilla);
+//	} else {
+//		intentoCombinacion.anadirCasilla(casillaDescartado);
+//	}
+//}
+//intentosColocar++;
+////			1.2.2.1. Siguientes intentos de colocar
+//} else {
+////				1.2.2.2.1. Comprobar la jugada anterior
+//numeroPinchos = tablero.getTablero().getLast().getResultado().contarColocados();
+//casilla = casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados);
+////					1.2.2.2.1.1. Si el número de colocados es mayor a 0, buscamos la posición dentro del anterior intento del color que hemos probado
+//if(numeroPinchos > 0) {
+//	for(i = 0 ; i < tablero.getTablero().getLast().getCombinacion().getCombinacion().length ; i++) {
+//		if(tablero.getTablero().getLast().getCombinacion().getCasilla(i).equals(casilla)) {
+////						1.2.2.2.1.1.1. Introducimos la posición y el color en la lista de posiciones y colores definitiva
+//			listaPosicionColorDefinitivo.put(i, casilla);
+////						1.2.2.2.1.1.2. Introducimos la posición y el color en la lista de posiciones y colores descartados
+//			listaPosicionColorDescartado.put(i, casilla);
+////						1.2.2.2.1.1.3. Pasamos al siguiente color de la lista de coloresEncontrados
+//			contadorColoresEncontrados++;
+////						1.2.2.2.1.1.4. Cogemos otro color de la lista de coloresDescartados para rellenar el intento
+//			aleatorioDescartado = rnd.nextInt(coloresDescartados.size());
+//		}
+//	}
+////					1.2.2.2.1.2. Si el número de colocados es igual a 0, buscamos la posición dentro del anterior intento del color que hemos probado
+//} else {
+////						1.2.2.2.1.2.1. Introducimos la posición y el color en la lista de posiciones y colores descartados
+//	for(i = 0 ; i < tablero.getTablero().getLast().getCombinacion().getCombinacion().length ; i++) {
+//		if(tablero.getTablero().getLast().getCombinacion().getCasilla(i).equals(casilla)) {
+//			listaPosicionColorDescartado.put(i, casilla);
+//		}
+//	}
+//}			
+////				1.2.2.2.2. Si la lista de posiciones y colores definitiva no contiene al menos tantas casillas como tiene una combinación, seguimos 
+////						probando posiciones para las casillas sin colocar
+//if(listaPosicionColorDefinitivo.size() < dificultad.getCasillas() || listaPosicionColorDefinitivo.isEmpty()) {
+//	casilla = casilla.seleccionarColorCasilla(dificultad, contadorColoresEncontrados);
+//	casillaDescartado = casillaDescartado.seleccionarColorCasilla(dificultad, aleatorioDescartado);
+////					1.2.2.2.2.1. Elegir una nueva posición para probar
+////						1.2.2.2.2.1.1. Comprobar que la posición asociada al color no se encuentre en la lista de definitivos ni en la de descartados
+//	do {
+//		repetirAleatorio = false;
+//		aleatorioPosicion = rnd.nextInt(dificultad.getCasillas());
+//		if(listaPosicionColorDefinitivo.containsKey(aleatorioPosicion)) {
+//			if(listaPosicionColorDefinitivo.get(aleatorioPosicion) != null) {
+//				listaPosicionColorDescartado.put(aleatorioPosicion, casilla);
+//				repetirAleatorio = true;
+//			}
+//		} else if(listaPosicionColorDescartado.containsKey(aleatorioPosicion)) {
+//			if(listaPosicionColorDescartado.get(aleatorioPosicion).equals(casilla)) {
+//				listaPosicionColorDescartado.put(aleatorioPosicion, casilla);
+//				repetirAleatorio = true;
+//			}
+//		}
+//	} while(repetirAleatorio);
+//	
+//	for(i = 0 ; i < dificultad.getCasillas() ; i++) {
+//		if(i == aleatorioPosicion) {
+//			intentoCombinacion.anadirCasilla(casilla);
+//		} else {
+//			intentoCombinacion.anadirCasilla(casillaDescartado);
+//		}
+//	}						
+////				1.2.2.2.3. Si la lista de posiciones y colores definitiva contiene al menos tantas casillas como tiene una combinación,
+////						hemos descubierto la combinación ganadora, por lo que convertimos la lista en una combinación para enviarla a la partida
+//} else if(listaPosicionColorDefinitivo.size() == dificultad.getCasillas()) {
+//	for(i = 0 ; i < dificultad.getCasillas() ; i++) {
+//		intentoCombinacion.anadirCasillaPosicion(listaPosicionColorDefinitivo.get(i), i);
+//	}
+//}
+//
+//intentosColocar++;
+//}
+//}
+//
+//
+//}
+	
+	
 }

@@ -270,7 +270,7 @@ public class Partida {
 	
 	private void pausar() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			System.out.println(e); //"Thread Interrupted"
 		}
