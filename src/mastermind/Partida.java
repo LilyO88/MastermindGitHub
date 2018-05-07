@@ -83,7 +83,7 @@ public class Partida {
 		//1. La máquina crea una combinación secreta			
 			tablero2 = new Tablero(((Maquina)jugador2).crearCombinacionSecreta(), dificultad);
 			System.out.println("El Jugador 2 (Máquina) ha creado la combinación secreta, intente adivinarla");
-			System.out.println(tablero2.getCombinacionSecreta().dibujar());
+//			System.out.println(tablero2.getCombinacionSecreta().dibujar());
 		//2. Sistema pregunta siguiente jugada
 			for(i = 0 ; i < dificultad.getIntentos() && !salir ; i++) {
 				System.out.println("\nIntento " + (i+1) + ":\n");
