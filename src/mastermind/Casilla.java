@@ -17,7 +17,7 @@ public class Casilla implements Dibujable {
 	 * Construye un nuevo objeto Casilla que almacen aun color específico
 	 * @param color Cadena a través de la cual se forma la Casilla 
 	 */	
-	Casilla(String color){
+	public Casilla(String color){
 		this.color = color;
 	}
 	/**
