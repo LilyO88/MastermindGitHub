@@ -1,5 +1,4 @@
 package test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -21,9 +20,9 @@ class TestCalcularResultado {
 	Dificultad dificultadMedio = Dificultad.MEDIO;
 	Dificultad dificultadDificil = Dificultad.DIFICIL;
 	
-	
-	
+	//combinacion == combinacionSecreta
 	@Test
+	@DisplayName("combinacion = combinacionSecreta, dificultad = fácil")
 	void combinacionesIgualesFacilTest() {
 		Combinacion combinacionFacil = new Combinacion(dificultadFacil);
 		Combinacion combinacionSecretaFacil = new Combinacion(dificultadFacil);
@@ -46,6 +45,7 @@ class TestCalcularResultado {
 		Assert.assertEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
 	}
 	@Test 
+	@DisplayName("combinacion = combinacionSecreta, dificultad = medio")
 	void combinacionesIgualesMedioTest() {
 		Combinacion combinacionMedio = new Combinacion(dificultadMedio);
 		Combinacion combinacionSecretaMedio = new Combinacion(dificultadMedio);
@@ -67,6 +67,7 @@ class TestCalcularResultado {
 		Assert.assertEquals(combinacionGanaMedio, combinacionMedio.calcularResultado(combinacionSecretaMedio));
 	} 
 	@Test 
+	@DisplayName("combinacion = combinacionSecreta, dificultad = difícil")
 	void combinacionesIgualesDificilTest() {
 		Combinacion combinacionDificil = new Combinacion(dificultadDificil);
 		Combinacion combinacionSecretaDificil = new Combinacion(dificultadDificil);
@@ -96,77 +97,173 @@ class TestCalcularResultado {
 		
 		Assert.assertEquals(combinacionGanaDificil, combinacionDificil.calcularResultado(combinacionSecretaDificil));		
 	}	
+	
+	//combinacion != combinacionSecreta
 	@Test 
+	@DisplayName("combinacion != combinacionSecreta, dificultad = fácil")	
 	void combinacionesNoIgualesFacilTest() {
-		Combinacion combinacionFacil2 = new Combinacion(dificultadFacil);
-		Combinacion combinacionSecretaFacil2 = new Combinacion(dificultadFacil);
-		Combinacion combinacionGanaFacil2 = new Combinacion(dificultadFacil);
+		Combinacion combinacionFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionSecretaFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionGanaFacil = new Combinacion(dificultadFacil);
 		
-		combinacionFacil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionFacil2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		combinacionFacil2.anadirCasilla(new Casilla(Color.FONDO_VERDE));
-		combinacionFacil2.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
-		combinacionSecretaFacil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionSecretaFacil2.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
-		combinacionSecretaFacil2.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
-		combinacionSecretaFacil2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		for (i = 0; i < combinacionGanaFacil2.getCombinacion().length; i++) {
-			combinacionGanaFacil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		for (i = 0; i < combinacionGanaFacil.getCombinacion().length; i++) {
+			combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
 		}
-		Assert.assertNotEquals(combinacionGanaFacil2, combinacionFacil2.calcularResultado(combinacionSecretaFacil2));
+		Assert.assertNotEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
 	}
 	@Test 
+	@DisplayName("combinacion != combinacionSecreta, dificultad = medio")
 	void combinacionesNoIgualesMedioTest() {
-		Combinacion combinacionMedio2 = new Combinacion(dificultadMedio);
-		Combinacion combinacionSecretaMedio2 = new Combinacion(dificultadMedio);
-		Combinacion combinacionGanaMedio2 = new Combinacion(dificultadMedio);
+		Combinacion combinacionMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionSecretaMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionGanaMedio = new Combinacion(dificultadMedio);
 		
-		combinacionMedio2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionMedio2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		combinacionMedio2.anadirCasilla(new Casilla(Color.FONDO_VERDE));
-		combinacionMedio2.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
-		combinacionMedio2.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
 		
-		combinacionSecretaMedio2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionSecretaMedio2.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
-		combinacionSecretaMedio2.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
-		combinacionSecretaMedio2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		combinacionSecretaMedio2.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_VERDE));
 		
-		for (i = 0; i < combinacionGanaMedio2.getCombinacion().length; i++) {
-			combinacionGanaMedio2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		for (i = 0; i < combinacionGanaMedio.getCombinacion().length; i++) {
+			combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
 		}
-		Assert.assertNotEquals(combinacionGanaMedio2, combinacionMedio2.calcularResultado(combinacionSecretaMedio2));
+		Assert.assertNotEquals(combinacionGanaMedio, combinacionMedio.calcularResultado(combinacionSecretaMedio));
 	}	
 	@Test
+	@DisplayName("combinacion != combinacionSecreta, dificultad = difícil")
 	void combinacionesNoIgualesDificilTest() {
-		Combinacion combinacionDificil2 = new Combinacion(dificultadDificil);
-		Combinacion combinacionSecretaDificil2 = new Combinacion(dificultadDificil);
-		Combinacion combinacionGanaDificil2 = new Combinacion(dificultadDificil);
+		Combinacion combinacionDificil = new Combinacion(dificultadDificil);
+		Combinacion combinacionSecretaDificil = new Combinacion(dificultadDificil);
+		Combinacion combinacionGanaDificil = new Combinacion(dificultadDificil);
 		
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_VERDE));
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		combinacionDificil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_AZUL));
-		combinacionSecretaDificil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
-		for (i = 0; i < combinacionGanaDificil2.getCombinacion().length; i++) {
-			combinacionGanaDificil2.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		for (i = 0; i < combinacionGanaDificil.getCombinacion().length; i++) {
+			combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
 		}
-		Assert.assertNotEquals(combinacionGanaDificil2, combinacionDificil2.calcularResultado(combinacionSecretaDificil2));
+		Assert.assertNotEquals(combinacionGanaDificil, combinacionDificil.calcularResultado(combinacionSecretaDificil));
 	}
-
+	
+	//repetir colores en combinación
 	@Test 
+	@DisplayName("repetir colores en combinación, dificultad = fácil")
+	void repetidosValidosFacilTest(){
+		Combinacion combinacionFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionSecretaFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionGanaFacil = new Combinacion(dificultadFacil);
+		
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+	
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
+	}
+	@Test 
+	@DisplayName("repetir colores en combinación, dificultad = medio")
+	void repetidosValidosMedioTest(){
+		Combinacion combinacionMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionSecretaMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionGanaMedio = new Combinacion(dificultadMedio);
+	
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaMedio, combinacionMedio.calcularResultado(combinacionSecretaMedio));
+	}
+	@Test 
+	@DisplayName("repetir colores en combinación, dificultad = difícil")
+	void repetidosValidosDificilTest(){
+		Combinacion combinacionDificil = new Combinacion(dificultadDificil);
+		Combinacion combinacionSecretaDificil = new Combinacion(dificultadDificil);
+		Combinacion combinacionGanaDificil = new Combinacion(dificultadDificil);
+		
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaDificil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaDificil, combinacionDificil.calcularResultado(combinacionSecretaDificil));
+	}
+	
+	//(combinacion.lenght > combinacionSecreta.lenght) || (combinacion.lenght < combinacionSecreta.lenght)	
+	@Test 
+	@DisplayName("combinacion.lenght < combinacionSecreta.lenght")
 	void tamanioCombinacionesDistintas1Test(){
 		Combinacion combinacionCorta = new Combinacion(dificultadFacil);
 		Combinacion combinacionSecretaLarga = new Combinacion(dificultadFacil);
@@ -188,8 +285,8 @@ class TestCalcularResultado {
 		
 		Assert.assertEquals(combinacionResultadoReal, combinacionCorta.calcularResultado(combinacionSecretaLarga));
 	}
-	
 	@Test
+	@DisplayName("combinacion.lenght > combinacionSecreta.lenght")
 	void tamanioCombinacionesDistintas2Test(){
 		Combinacion combinacionLarga = new Combinacion(dificultadFacil);
 		Combinacion combinacionSecretaCorta = new Combinacion(dificultadFacil);
@@ -208,33 +305,235 @@ class TestCalcularResultado {
 		});
 	}
 	
+	//combinacion.lenght ò combinacionSecreta.lenght no corresponden con la dificultad
 	@Test 
-	void tamanioCombinacionNoCorrespondeDificultadTest(){ 
-		//Crear set para pasarle una combinacion que no sea del largo de la dificultad?????????????
+	@DisplayName("combinacion.lenght ò combinacionSecreta.lenght no corresponden con la dificultad = fácil")
+	void tamanioCombinacionNoCorrespondeDificultadFacilTest(){ 
+		Combinacion combinacionFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionSecretaFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionGanaFacil = new Combinacion(dificultadFacil);
+		
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+	
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
+	}	
+	@Test 
+	@DisplayName("combinacion.lenght ò combinacionSecreta.lenght no corresponden con la dificultad = medio")
+	void tamanioCombinacionNoCorrespondeDificultadMedioTest(){ 
+		Combinacion combinacionMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionSecretaMedio = new Combinacion(dificultadMedio);
+	
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+				
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			combinacionMedio.calcularResultado(combinacionSecretaMedio);
+		});
+	}	
+	@Test 
+	@DisplayName("combinacion.lenght ò combinacionSecreta.lenght no corresponden con la dificultad = difícil")
+	void tamanioCombinacionNoCorrespondeDificultadDificilTest(){ 
+		Combinacion combinacionDificil = new Combinacion(dificultadDificil);
+		Combinacion combinacionSecretaDificil = new Combinacion(dificultadDificil);
+		
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaDificil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			combinacionDificil.calcularResultado(combinacionSecretaDificil);
+		});
 	}
-
-	@Test 
+	
+	//combinacion == null || combinacionSecreta == null //??????????????
+	@Test
+	@DisplayName("combinacion == null || combinacionSecreta == null") 
 	void combinacionNulaTest(){ 
-			
-	}
-
+		Combinacion combinacionFacil = null;
+		Combinacion combinacionSecretaFacil = null;
+		Combinacion combinacionMedio = null;
+		Combinacion combinacionSecretaMedio = null;
+		Combinacion combinacionDificil = null;
+		Combinacion combinacionSecretaDificil = null;
+		
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			combinacionFacil.calcularResultado(combinacionSecretaFacil);
+		});
+		
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			combinacionMedio.calcularResultado(combinacionSecretaMedio);
+		});
+		
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			combinacionDificil.calcularResultado(combinacionSecretaDificil);
+		});
+	}	
+	
+	//(combinacion[i] == null || !casilla)  || (combinacionSecreta[i] == null || !casilla)
 	@Test 
-	void elementoDeCombinacionNoEsCasillaTest(){ 
-			
-	}
-
+	@DisplayName("combinacion[i] == null || (combinacionSecreta[i] == null")
+	void elementoDeCombinacionNoEsCasilla1Test(){ 
+		Combinacion combinacionFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionSecretaFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionGanaFacil = new Combinacion(dificultadFacil);
+		
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionFacil.anadirCasilla(null);
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+	
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
+	}	
+	
+	//introducir un color en cualquiera de las dos combinaciones que no corresponda a la dificultad
 	@Test 
-	void colorEquivocadoDificultadFacilMedioTest(){ 
-			
+	@DisplayName("introducir un color en cualquiera de las dos combinaciones que no corresponda a la dificultad = fácil")
+	void colorEquivocadoDificultadFacilTest(){ 
+		Combinacion combinacionFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionSecretaFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionGanaFacil = new Combinacion(dificultadFacil);
+		
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
+		
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
+	
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
 	}
-
 	@Test 
-	void coloresRepetidosFacilMedioTest(){ 
-			
+	@DisplayName("introducir un color en cualquiera de las dos combinaciones que no corresponda a la dificultad = medio")
+	void colorEquivocadoDificultadMediolTest(){
+		Combinacion combinacionMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionSecretaMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionGanaMedio = new Combinacion(dificultadMedio);
+	
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_GRISOSCURO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));	
+		
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaMedio, combinacionMedio.calcularResultado(combinacionSecretaMedio));
 	}
+	
+	//combinacionSecreta en modo fácil o medio tiene colores repetidos
+	@Test 
+	@DisplayName("combinacionSecreta en modo fácil tiene colores repetidos")
+	void coloresRepetidosFacilTest(){ 
+		Combinacion combinacionFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionSecretaFacil = new Combinacion(dificultadFacil);
+		Combinacion combinacionGanaFacil = new Combinacion(dificultadFacil);
+		
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaFacil.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+	
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		
+		Assert.assertEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
+	}	
+	@Test 
+	@DisplayName("combinacionSecreta en modo medio tiene colores repetidos")
+	void coloresRepetidosMedioTest() { 
+		Combinacion combinacionMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionSecretaMedio = new Combinacion(dificultadMedio);
+		Combinacion combinacionGanaMedio = new Combinacion(dificultadMedio);
 
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_VERDE));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AMARILLOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_MORADOCLARO));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+		combinacionSecretaMedio.anadirCasilla(new Casilla(Color.FONDO_AZUL));
+
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+
+		Assert.assertNotEquals(combinacionGanaMedio, combinacionMedio.calcularResultado(combinacionSecretaMedio));
+	}
+		
+	//llama al método o pasan por parámetro algo que no es una combinación
 	@Test 
 	void noEsCombinacionTest(){ 
-			
+		
 	}
 }

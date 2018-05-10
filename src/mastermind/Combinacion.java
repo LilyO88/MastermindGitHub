@@ -60,7 +60,7 @@ public class Combinacion implements Dibujable {
 
 		if (obj instanceof Combinacion && Arrays.equals(combinacion, ((Combinacion) obj).combinacion) && dificultad == (((Combinacion) obj).dificultad))
 		resultado = true;
-		System.out.println("Esta entrando en mi equals");
+		
 		return resultado;
 	}
 	
