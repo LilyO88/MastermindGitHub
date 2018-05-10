@@ -1,5 +1,6 @@
 package mastermind;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import utilidades.Color;
@@ -14,7 +15,7 @@ public class Combinacion implements Dibujable {
 	/**
 	 * Almacena un conjunto de determinado tamaño de casillas que juntas forman una combinación
 	 */
-	private Casilla combinacion[];
+	private Casilla[] combinacion;
 	/**
 	 * Almacena la dificultad que hemos elegido al crear la partida
 	 */
@@ -27,7 +28,7 @@ public class Combinacion implements Dibujable {
 	 * Construye un nuevo objeto combinación que almacena dificultad y un conjunto de casillas que forman una combinación
 	 * @param dificultad Enum que nos facilita el tamaño que tendrá el array de casillas
 	 */
-	Combinacion(Dificultad dificultad) {
+	public Combinacion(Dificultad dificultad) {
 		combinacion = new Casilla[dificultad.getCasillas()];
 		this.dificultad = dificultad;
 	}
@@ -57,8 +58,9 @@ public class Combinacion implements Dibujable {
 	public boolean equals(Object obj) {
 		boolean resultado = false;
 
-		if (obj instanceof Combinacion && combinacion.equals(((Combinacion) obj).combinacion)&& dificultad == (((Combinacion) obj).dificultad));
+		if (obj instanceof Combinacion && Arrays.equals(combinacion, ((Combinacion) obj).combinacion) && dificultad == (((Combinacion) obj).dificultad))
 		resultado = true;
+		
 		return resultado;
 	}
 	
