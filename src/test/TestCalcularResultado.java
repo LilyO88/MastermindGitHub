@@ -328,9 +328,10 @@ class TestCalcularResultado {
 		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_ROJOCLARO));
 		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
 		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
-		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
+		combinacionGanaFacil.anadirCasilla(new Casilla(Color.FONDO_BLANCO));
 		
-		Assert.assertEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
+		Assert.assertNotEquals(combinacionGanaFacil, combinacionFacil.calcularResultado(combinacionSecretaFacil));
 	}	
 	@Test 
 	@DisplayName("combinacion.lenght ò combinacionSecreta.lenght no corresponden con la dificultad = medio")
@@ -378,27 +379,34 @@ class TestCalcularResultado {
 	//combinacion == null || combinacionSecreta == null //??????????????
 	@Test
 	@DisplayName("combinacion == null || combinacionSecreta == null") 
-	void combinacionNulaTest(){ 
+	void combinacionNulaFacilTest(){ 
 		Combinacion combinacionFacil = null;
 		Combinacion combinacionSecretaFacil = null;
-		Combinacion combinacionMedio = null;
-		Combinacion combinacionSecretaMedio = null;
-		Combinacion combinacionDificil = null;
-		Combinacion combinacionSecretaDificil = null;
 		
 		Assertions.assertThrows(NullPointerException.class, () -> {
 			combinacionFacil.calcularResultado(combinacionSecretaFacil);
 		});
+	}	
+	@Test
+	@DisplayName("combinacion == null || combinacionSecreta == null") 
+	void combinacionNulaMedioTest(){ 
+		Combinacion combinacionMedio = null;
+		Combinacion combinacionSecretaMedio = null;
 		
 		Assertions.assertThrows(NullPointerException.class, () -> {
 			combinacionMedio.calcularResultado(combinacionSecretaMedio);
 		});
+	}
+	@Test
+	@DisplayName("combinacion == null || combinacionSecreta == null") 
+	void combinacionNulaDificilTest(){ 
+		Combinacion combinacionDificil = null;
+		Combinacion combinacionSecretaDificil = null;
 		
 		Assertions.assertThrows(NullPointerException.class, () -> {
 			combinacionDificil.calcularResultado(combinacionSecretaDificil);
 		});
-	}	
-	
+	}
 	//(combinacion[i] == null || !casilla)  || (combinacionSecreta[i] == null || !casilla)
 	@Test 
 	@DisplayName("combinacion[i] == null || (combinacionSecreta[i] == null")
@@ -529,11 +537,5 @@ class TestCalcularResultado {
 		combinacionGanaMedio.anadirCasilla(new Casilla(Color.FONDO_NEGRO));
 
 		Assert.assertNotEquals(combinacionGanaMedio, combinacionMedio.calcularResultado(combinacionSecretaMedio));
-	}
-		
-	//llama al método o pasan por parámetro algo que no es una combinación
-	@Test 
-	void noEsCombinacionTest(){ 
-		
 	}
 }
